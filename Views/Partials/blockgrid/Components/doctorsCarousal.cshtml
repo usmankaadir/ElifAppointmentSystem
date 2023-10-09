@@ -1,0 +1,79 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DoctorsCarousal>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var _iconImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("iconImage");
+    var typedMultiNodeTreePicker = Model.Content.Carousals;
+}
+<!-- Doctors section starts -->
+    <section class="space-ptb bkg-gray">
+      <div class="container">
+        <div class="doctor-section">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">
+                   @Model.Content.Title
+                  @if (_iconImage != null)
+                {
+                        <img src="@_iconImage.MediaUrl()" alt="" />
+                }
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="doctor-carousal" data-aos="fade-up">
+              <div class="owl-carousel owl-4 owl-theme">
+              @if (typedMultiNodeTreePicker != null)
+                {
+                    @foreach (var itemPublished in typedMultiNodeTreePicker)
+                    {
+                        var item = itemPublished as Carousals;
+                        if (item != null)
+                        {          
+                            var pickedImage = item.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+                            <div class="item">
+                              <div class="card mx-2">
+                                <div class="doctor-img">
+                                  <a href="/doctor-profile.html">
+                                    <img src="@pickedImage.Url()" alt="@pickedImage.Name" class="card-img-top w-100" />
+                                  </a>
+                                  <div class="doctor-price">
+                                    <span>@(item.Value<string>("doctorsPrice"))</span>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  <div class="dr-info">
+                                    <a href="#">
+                                      <p class="text-start fw-bold mb-0">@(item.Value<string>("doctorsName"))</p>
+                                    </a>
+                                    <p class="light">@(item.Value<string>("rating"))</p>
+                                  </div>
+                                  <div class="rating">
+                                    <p>
+                                      <span class="review p-1 m-1 rounded">
+                                        <i class="fa-solid fa-star" style="color: #ffffff"></i>
+                                        @(item.Value<string>("doctorsPrice"))
+                                      </span>
+                                      @(item.Value<string>("reviews"))
+                                    </p>
+                                  </div>
+                                  <div class="dr-location">
+                                    <p class="fw-light my-0">
+                                      <i class="fa-solid fa-location-dot"></i>
+                                      @(item.Value<string>("location"))
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        }
+                    }
+                }    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Doctors section ends -->

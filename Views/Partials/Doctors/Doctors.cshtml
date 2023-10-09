@@ -1,0 +1,29 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var _doctors = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "doctors");
+    //var _doctorProfile = _doctors != null ? _doctors.Children(x => x.ContentType.Alias == "docotorProfile") : null;
+}
+
+<h1> @_doctors.Value("title")</h1>
+<p>@_doctors.Value("username")</p>
+<p>@_doctors.Value("firstName")</p>
+<p>@_doctors.Value("lastName")</p>
+<p>@_doctors.Value("email")</p>
+<p>@_doctors.Value("gender")</p>
+<p>@_doctors.Value("phoneNumber")</p>
+<p>@_doctors.Value("dateOfBirth")</p>
+<p>@_doctors.Value("uploadImage")</p>
+<br><br>
+
+
+<h1> @_doctors.Value("contactTitle")</h1>
+<p>@_doctors.Value("addressLine1")</p>
+<p>@_doctors.Value("addressLine2")</p>
+<p>@_doctors.Value("city")</p>
+<p>@_doctors.Value("state")</p>
+<p>@_doctors.Value("country")</p>
+<p>@_doctors.Value("postalCode")</p>

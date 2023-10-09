@@ -1,0 +1,30 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var _patients = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "appointments");
+    var _patientProfile = _patients != null ? _patients.Children(x => x.ContentType.Alias == "appointment").OrderByDescending(x => x.CreateDate) : null;
+   
+ }
+ @if(_patientProfile != null)
+ {
+    foreach (var item in _patientProfile.Take(1))
+    {
+            IPublishedContent _selectDoctor = Model.Value<IPublishedContent>("selectDoctor");
+            if (_selectDoctor != null)
+            {
+                <p>@_selectDoctor.Name</p>
+            }
+            IPublishedContent _selectPatient = Model.Value<IPublishedContent>("selectPatient");
+            if (_selectPatient != null)
+            {
+                <p>@_selectPatient.Name</p>
+            }
+        
+       <p>@item.Value("date")</p>  
+   }
+}  
+    
+

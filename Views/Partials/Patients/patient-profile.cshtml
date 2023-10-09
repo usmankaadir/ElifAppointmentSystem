@@ -1,0 +1,49 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var _patients = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "patients");
+    var _patientProfile = _patients != null ? _patients.Children(x => x.ContentType.Alias == "patientProfile").OrderByDescending(x => x.CreateDate) : null;
+   
+ }
+ @if(_patientProfile != null)
+ {
+    foreach (var item in _patientProfile.Take(1))
+    {
+    var uploadImage = item.Value<string>("uploadImage");
+        <h1> @item.Value("title")</h1>
+        <p>@item.Value("username")</p>
+        <p>@item.Value("firstName")</p>
+        <p>@item.Value("lastName")</p>
+        <p>@item.Value("email")</p>
+        <p>@item.Value("gender")</p>
+        <p>@item.Value("phoneNumber")</p>
+        <p>@item.Value("dateOfBirth")</p>
+        <img src="@uploadImage" alt="">
+        <p>@item.Value("about")</p>
+        <br><br>
+        
+        
+        <h1>@item.Value("contactTitle")</h1>
+        <p>@item.Value("addressLine1")</p>
+        <p>@item.Value("addressLine2")</p>
+        <p>@item.Value("city")</p>
+        <p>@item.Value("state")</p>
+        <p>@item.Value("country")</p>
+        <p>@item.Value("postalCode")</p> 
+        <li>@item.Value("bloodGroup")</li>
+        
+       
+            IPublishedContent typedContentPicker = Model.Value<IPublishedContent>("selectDoctor");
+            if (typedContentPicker != null)
+            {
+                <p>@typedContentPicker.Name</p>
+            }
+        
+       <p>@item.Value("date")</p>  
+   }
+}  
+    
+

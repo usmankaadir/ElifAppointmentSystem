@@ -1,0 +1,68 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Feature_Cards>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var sideImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+    var typedMultiNodeTreePicker = Model.Content.Benefits;
+}
+ <!-- Work Section Starts -->
+    <section class="space-ptb bkg-gray pb-0">
+      <div class="container">
+        <div class="work-section">
+          <div class="row">
+            <div class="col-lg-4 col-sm-12">
+              <div class="side-img">
+                @if (sideImage != null)
+                {
+                        <img src="@sideImage.MediaUrl()" alt="" />
+                }
+              </div>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+              <div class="work-side">
+                <div class="work-header" data-aos="fade-up">
+                  <div class="work-header-info">
+                    <p>@Model.Content.Title</p>
+                    <h1>@Model.Content.Description</h1>
+                  </div>
+                </div>
+                <div class="row">
+                  
+                @if (typedMultiNodeTreePicker != null)
+                {
+                    @foreach (var itemPublished in typedMultiNodeTreePicker)
+                    {
+                        var item = itemPublished as Benefits;
+                        if (item != null)
+                        {
+                            var pickedImage = item.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("Icon");
+                        <div class="col-md-6 col-sm-12" data-aos="fade-up">
+                            <div class="work-info">
+                                <div class="Side-icon">
+                                    <span>
+                                        @if (pickedImage != null)
+                                        {
+                                            <img src="@pickedImage.Url()" alt="@pickedImage.Name" />
+                                        }
+                                    </span>
+                                </div>
+                                <div class="work-content">
+                                    <h4>@item.Title</h4>
+                                    <p>@(item.Value<string>("description"))
+                                    </p>
+                                </div>
+                            </div>
+                        </div>    
+                        }
+                    }
+                } 
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Work Section Ends -->
+     
+    

@@ -1,0 +1,94 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+    
+@{
+    var siteLogo = Model.Value<IPublishedContent>("SiteLogo");
+    var header = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "header");
+    var headerLink = header != null ? header.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("pageLink") : null;
+
+    var headerTypes = header != null ? header.Children(x => x.ContentType.Alias == "link") : null;
+    var currentPage = UmbracoContext.PublishedRequest.PublishedContent;
+}
+<!-- Navbar starts -->
+    <nav class="navbar bkg-gray navbar-expand-lg fixed-top py-2 header-one">
+      <div class="container p-0">
+        <!-- sidebar -->
+        <!-- logo -->
+        <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars-staggered" style="color: #0e82fd; font-size: 28px"></i>
+        </button>
+        <a class="navbar-brand" href="/Index.html"><img src="@(siteLogo != null ? siteLogo.Url() : "")" alt="@siteLogo.Name" class="w-100" /></a>
+
+        <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel">
+          <!-- sidebar header -->
+          <div class="offcanvas-header text-white bg-light border-bottom">
+            <a class="navbar-brand img-fluid" href="#"><img src="/assets/imgs/logo.png" alt="" /></a>
+
+            <button type="button" class="shadow-none border-0 bg-light" style="color: #0e82fd; font-size: 28px"
+              data-bs-dismiss="offcanvas" aria-label="Close">
+              <i class="fa-solid fa-light fa-xmark"></i>
+            </button>
+          </div>
+          <!-- sidebar body -->
+          <div class="offcanvas-body ms-4 px-md-0">
+            <ul class="navbar-nav justify-content-center p-0">
+                 
+                   
+                 @if(header != null)
+                 {
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@header.Url()">@header.Name</a>
+                    </li>    
+                  }  
+                @if(headerTypes != null)
+                    {
+                    <li class="nav-item dropdown">
+                        <i class="fa-solid fa-chevron-down toggle-down"></i>
+                        <a class="nav-link active" href="@header.Url()" role="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          @header.Name
+                        </a>
+                        <ul class="dropdown-menu p-0 mt-3">
+                    @foreach(var headerType in headerTypes)
+                        {
+                            var subTypes = headerType.Children.Where(x => x.ContentType.Alias == "link"); 
+                            <li>
+                                <a class="dropdown-item" href="@headerType.Url()">@headerType.Name</a>
+                            </li>
+                            @if(subTypes != null)
+                            {
+                            <li class="nav-item dropend">
+                                <i class="fa-solid fa-chevron-right toggle-right"></i>
+                                <a class="nav-link active dropdown-item" href="@headerType.Url()" role="button" data-bs-toggle="dropdown"
+                                  aria-expanded="false">
+                                  @headerType.Name
+                                </a>
+                                <ul class="dropdown-menu p-0 mt-2 mx-0" data-aos="fade-up" data-aos-delay="1000">
+                                @foreach(var subType in subTypes)
+                                {    
+                                  <li>
+                                    <a class="dropdown-item" href="@subType.Url()">@subType.Name</a>
+                                  </li>
+                                }
+                                </ul>
+                                
+                            </li>
+                            
+                        }    
+                      }
+                    
+                    
+                </ul>
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar ends  -->

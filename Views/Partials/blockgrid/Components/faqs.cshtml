@@ -1,0 +1,57 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Faqs>>
+
+@{
+    var typedMultiNodeTreePicker = Model.Content.FaqsItems;
+    var i = 0;
+}
+
+<section class="faq-section space-ptb pt-0">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <div class="section-header d-flex justify-content-center align-items-center flex-column">
+                    <h5>Get Your Answer</h5>
+                    <h2 class="section-title">
+                        Frequently Asked Questions
+                        <img src="/assets/imgs/plus-icon.svg" alt="" />
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-left">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="faq-info">
+                        <div class="accordion" id="faq-detail">
+                            @foreach (var itemPublished in typedMultiNodeTreePicker)
+                            {
+                                var faqItem = itemPublished as FaqsItems;
+                                if (faqItem != null)
+                                {
+                                    i++;
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq-detail-heading@(i)">
+                                            <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#faq-detail-collapse@(i)" aria-expanded="false" aria-controls="faq-detail-collapse@(i)">
+                                                @(faqItem.Value<string>("title"))
+                                            </a>
+                                        </h2>
+                                        <div id="faq-detail-collapse@(i)" class="accordion-collapse collapse" aria-labelledby="faq-detail-heading@(i)"
+                                            data-bs-parent="#faq-detail">
+                                            <div class="accordion-body">
+                                                <p>
+                                                    @(faqItem.Value<string>("description"))
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

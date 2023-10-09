@@ -1,0 +1,713 @@
+﻿@*@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<BasicInfo>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using System.IO;
+@{
+    var sideImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+    var uploadImage = Model.Content.Value<string>("UploadImage");
+    
+}
+@if (uploadImage != null)
+{
+   <a href="@uploadImage">@System.IO.Path.GetFileName(uploadImage)</a>
+}
+<h2>@Model.Content.Title</h2>
+<p>@(Model.Content.UserName)</p>
+<p>@(Model.Content.Email)</p>
+<p>@(Model.Content.FirstName)</p>
+<p>@(Model.Content.LastName)</p>
+<p>@(Model.Content.DOB)</p>
+<p>@(Model.Content.AboutMe)</p>
+<p>@(Model.Content.Gender)</p>
+
+ 
+ <br><br><br>
+<h2>@Model.Content.ContactTitle</h2>
+<p>@(Model.Content.AddreesLine01)</p>
+<p>@(Model.Content.AddressLine02)</p>
+<p>@(Model.Content.City)</p>
+<p>@(Model.Content.State)</p>
+<p>@(Model.Content.Country)</p>
+<p>@(Model.Content.PostalCode)</p>
+
+ <br><br><br>
+ <h2>@Model.Content.ServicesTitle</h2>
+ @foreach (var item in Model.Content.Value <IEnumerable<string>>("enterService"))
+    {
+      <a href="#" class="btn btn-light text-primary">@item</a>
+    }
+@foreach (var item in Model.Content.Value <IEnumerable<string>>("specialization"))
+     {
+        <a href="#" class="btn btn-light text-primary">@item</a>
+     } 
+
+<br><br><br>
+<h2>@Model.Content.ServicesTitle</h2>
+<p>@(Model.Content.Degree)</p>
+<p>@(Model.Content.EducationTitle)</p>
+<p>@(Model.Content.Collage)</p>
+<p>@(Model.Content.YearOfCompletion)</p>
+
+<br><br><br>
+<h2>@Model.Content.ExperienceTitle</h2>
+<p>@(Model.Content.HospitalName)</p>
+<p>@(Model.Content.From)</p>
+<p>@(Model.Content.To)</p>
+<p>@(Model.Content.Designation)</p>
+<br><br><br>
+<h2>@Model.Content.AwardsTitle</h2>
+<p>@(Model.Content.Awards)</p>
+<p>@(Model.Content.Year)</p>
+
+
+<!-- ==================Dashboard starts============= -->
+      <section class="dashboard-section bkg-gray">
+        <div class="container">
+          <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+              <h2 class="breadcrumb-title">Profile Settings</h2>
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="Index.html">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Profile Settings
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==================Dashboard Ends============= -->
+
+      <!-- ==================main content start============= -->
+      <section class="space-ptb">
+        <div class="main-content">
+          <div class="container">
+            <div class="row">
+              <!-- ============Admin sidebar=============== -->
+              <div class="col-md-5 col-lg-4 col-xl-3 admin-sidebar">
+                <div class="is-sticky">
+                  <div class="profile-sidebar">
+                    <div class="widget-profile">
+                      <div class="profile-info">
+                        <a href="" class="doc-profile-img">
+                          <img
+                            src="/assets/imgs/doctor-thumb-02.jpg"
+                            alt="doc-img"
+                          />
+                        </a>
+                      </div>
+                      <div class="doc-profile-info">
+                        <h3>Dr. Darren Elder</h3>
+                        <p class="mb-0">
+                          BDS, MDS - Oral &amp; Maxillofacial Surgery
+                        </p>
+                      </div>
+                    </div>
+                    <div class="dashboard-widget">
+                      <nav class="dashboard-menu">
+                        <ul class="p-0 m-0 doc-nav">
+                          <li>
+                            <a href="doctors-dashboard.html">
+                              <i class="fas fa-columns"></i>
+                              <span>Dashboard</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="appointments.html">
+                              <i class="fas fa-calendar-check"> </i>
+                              <span>Appointments</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="my-patient.html">
+                              <i class="fas fa-user-injured"> </i>
+                              <span>My Patients</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="schedule-timings.html">
+                              <i class="fas fa-hourglass-start"> </i>
+                              <span>Schedule Timing</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="available-timing.html">
+                              <i class="fas fa-clock-four"> </i>
+                              <span>Available Timing</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="invoices.html">
+                              <i class="fas fa-file-invoice"> </i>
+                              <span>Invoices</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="accounts.html">
+                              <i class="fas fa-file-invoice-dollar"> </i>
+                              <span>Accounts</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="reviews.html">
+                              <i class="fas fa-star"> </i>
+                              <span>Reviews</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="chat.html">
+                              <i class="fas fa-comments"> </i>
+                              <span>Messages</span>
+                              <small class="unread-msgs">23</small>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="doctor-profile-setting.html">
+                              <i class="fas fa-user-cog"> </i>
+                              <span>Profile Settings</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="social-media.html">
+                              <i class="fas fa-share-alt"> </i>
+                              <span>Social Media</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="change-pass.html">
+                              <i class="fas fa-lock"> </i>
+                              <span>Change Password</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="login.html">
+                              <i class="fas fa-sign-out-alt"> </i>
+                              <span>Log Out</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- =========================== -->
+
+              <div class="col-md-7 col-lg-8 col-xl-9">
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">@Model.Content.Title</h5>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="mb-3 change-avatar d-flex flex-row">
+                          <div class="avatar-img">
+                            <img
+                              src="/assets/imgs/doctor-thumb-02.jpg"
+                              alt="change avatar img"
+                              class="rounded-1"
+                            />
+                          </div>
+                          <div class="upload-photo">
+                            <div class="change-photo-btn my-3">
+                              <button class="btn p-0">
+                                <span>
+                                  <i class="fas fa-upload"></i>
+                                  Upload Photo
+                                  <input type="file" class="upload" />
+                                </span>
+                              </button>
+                            </div>
+                            <small class="form-text text-muted"
+                              >Allowed JPG, GIF or PNG. Max size of 2MB</small
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Username
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="@(Model.Content.UserName)" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Email
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >First Name
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Last Name
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Phone Number
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Gender
+                              <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select form-control">
+                              <option>Select</option>
+                              <option>Male</option>
+                              <option>Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2"
+                              >Date of Birth
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">About Me</h5>
+                    <div class="row">
+                      <div class="input-group">
+                        <label for="" class="mb-2">Biography </label>
+                        <textarea
+                          class="form-control w-100"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Clinic Info</h5>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Clinic Name </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Clinic Address </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Clinic Images </label>
+                            <form action="#" class="dropzone dz-clickable">
+                              <div class="dz-default dz-message">
+                                <span>Drop files here to upload</span>
+                                <input type="file" class="upload" />
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="upload-wrap d-flex">
+                          <div class="upload-images mx-2">
+                            <img
+                              src="/assets/imgs/upload-01.jpg"
+                              alt=""
+                              class="w-100 rounded-2"
+                            />
+                            <a class="btn btn-danger del-img"
+                              ><i class="fas fa-trash-can text-light"></i
+                            ></a>
+                          </div>
+                          <div class="upload-images mx-2">
+                            <img
+                              src="/assets/imgs/upload-02.jpg"
+                              alt=""
+                              class="w-100 rounded-2"
+                            />
+                            <a class="btn btn-danger del-img"
+                              ><i class="fas fa-trash-can text-light"></i
+                            ></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Contact Details</h5>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Address Line 1 </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Address Line 2 </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">City </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">State/Province </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Country </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">postal Code </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Pricing</h5>
+                    <div>
+                      <div class="price-select">
+                        <div
+                          class="custom-control form-check custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="price_free"
+                            name="rating_option"
+                            class="form-check-input"
+                            value="price_free"
+                            checked=""
+                          />
+                          <label class="form-check-label" for="price_free"
+                            >Free</label
+                          >
+                        </div>
+                        <div
+                          class="custom-control form-check custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="price_custom"
+                            name="rating_option"
+                            value="custom_price"
+                            class="form-check-input"
+                          />
+                          <label class="form-check-label" for="price_custom"
+                            >Custom Price (per hour)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Services and Specialization</h5>
+                    <div class="mb-3">
+                      <div class="mb-2">
+                        <label for="">Services</label>
+                      </div>
+                      <div class="tags-input">
+                        <span class="tag badge badge-info"
+                          >Tooth cleaning
+                          <span data-role="remove" class="del-tag"></span
+                        ></span>
+                        <input type="text" placeholder="Enter Services" />
+                      </div>
+                      <small class="form-text text-muted"
+                        >Note : Type &amp; Press enter to add new
+                        services</small
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <div class="mb-2">
+                        <label for="">Specialization</label>
+                      </div>
+                      <div class="tags-input">
+                        <span class="tag badge badge-info"
+                          >Tooth cleaning
+                          <span data-role="remove" class="del-tag"></span
+                        ></span>
+                        <input type="text" placeholder="Enter Services" />
+                      </div>
+                      <small class="form-text text-muted"
+                        >Note : Type &amp; Press enter to add new
+                        services</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Education</h5>
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-11">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">Degree </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2"
+                                  >Collage/Institute
+                                </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2"
+                                  >Year of Completion
+                                </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="add-education"></div>
+                    <div class="add-more mb-3">
+                      <a class="edit-link add-edu">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Experience</h5>
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-11">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2"
+                                  >Hoppital Name
+                                </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">From </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">To </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">Designation </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="add-experience"></div>
+                    <div class="add-more mb-3">
+                      <a class="edit-link add-exp">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Awards</h5>
+                    <div class="row">
+                      <div class="col-12 col-md-10 col-lg-11">
+                        <div class="row">
+                          <div class="col-md-5 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">Award </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-5 col-12">
+                            <div class="input-group">
+                              <div class="mb-3 w-100">
+                                <label for="" class="mb-2">Year </label>
+                                <input type="text" class="form-control w-100" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="add-new-award"></div>
+                    <div class="add-more mb-3">
+                      <a class="edit-link add-award">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Memberships</h5>
+
+                    <div class="row">
+                      <div class="col-md-5 col-12">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Memberships </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="add-new-Memberships"></div>
+                    <div class="add-more mb-3">
+                      <a class="edit-link add-Memberships">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body basic-info p-4">
+                    <h5 class="mb-3">Registerations</h5>
+
+                    <div class="row">
+                      <div class="col-md-5 col-12">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Registerations </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-12">
+                        <div class="input-group">
+                          <div class="mb-3 w-100">
+                            <label for="" class="mb-2">Year </label>
+                            <input type="text" class="form-control w-100" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="add-new-Registerations"></div>
+                    <div class="add-more mb-3">
+                      <a class="edit-link add-Registerations">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="submit-changes">
+                  <div class="speciality-btn">
+                    <a href="#" class="btn shadow-none fs-6 py-2"
+                      >Save Changes</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==================main content Ends============= -->*@

@@ -1,0 +1,64 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<SpacialitiesCarousel>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var _iconImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("iconImage");
+    var links = Model.Content.ButtonLink;
+    var typedMultiNodeTreePicker = Model.Content.Carousals;
+}
+    <!-- spacialities-section starts -->
+    <section class="space-ptb">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="section-header" data-aos="fade-up">
+              <h2 class="section-title">
+                @Model.Content.Title
+                @if (_iconImage != null)
+                {
+                        <img src="@_iconImage.MediaUrl()" alt="" />
+                }
+              </h2>
+            </div>
+          </div>
+        </div>
+        <!-- owl carousel -->
+        <div class="row" data-aos="fade-up">
+          <div class="speciality-carousal">
+            <div class="owl-carousel owl-theme owl-6">
+            @if (typedMultiNodeTreePicker != null)
+                {
+                    @foreach (var itemPublished in typedMultiNodeTreePicker)
+                    {
+                        var item = itemPublished as Carousals;
+                        if (item != null)
+                        {
+                        var pickedImage = item.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+                        <div class="item">
+                            <div class="card">
+                              <div class="specialities-img mt-4">
+                                <a href="#">
+                                  <img src="@pickedImage.Url()" class="img-fluid w-100" alt="@pickedImage.Name" />
+                                </a>
+                              </div>
+                              <div class="card-body p-0">
+                                <p class="text-center">@(item.Value<string>("text"))</p>
+                              </div>
+                            </div>
+                        </div>
+                        }
+                    }
+                }    
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="speciality-btn text-sm-center mt-5" data-aos="fade-up">
+            @foreach (var link in links)
+            {
+                <a href="@link.Url" class="btn fs-6">@link.Name</a>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- spacialities-section ends -->

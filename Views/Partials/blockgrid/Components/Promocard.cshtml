@@ -1,0 +1,67 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<PromoCard>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var _scanImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("scanImage");
+    var _image = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+    var typedMultiNodeTreePicker = Model.Content.PromoCards;
+}
+ 
+
+   <!-- app-section starts  -->
+    <section class="space-ptb pt-0">
+      <div class="container">
+        <div class="app-bg">
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+              <div class="app-content">
+                <div class="app-header" data-aos="fade-up">
+                  <h5>@Model.Content.FirstHeading</h5>
+                  <h2>@Model.Content.SecHeading</h2>
+                </div>
+                <div class="app-scan" data-aos="fade-up">
+                  <p>@Model.Content.Description</p>
+                  @if (_scanImage != null)
+                    {
+                       <img src="@_scanImage.MediaUrl()" alt="" />
+                    }
+                </div>
+                <div class="social-apps" data-aos="fade-up">
+                @if (typedMultiNodeTreePicker != null)
+                {
+                    @foreach (var itemPublished in typedMultiNodeTreePicker)
+                    {
+                        var item = itemPublished as PromoCards;
+                        if (item != null)
+                        {          
+                            var pickedImage = item.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("socialImages");
+                               
+                              <a href="#">
+                                @if (pickedImage != null)
+                                {
+                                   <img src="@pickedImage.Url()" alt="" />
+                                }
+                              </a>
+                        }
+                    }
+                }    
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="side-img" data-aos="fade-up">
+                @if (_image != null)
+                    {
+                       <img src="@_image.MediaUrl()" alt="" />
+                    }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- app-section ends  -->
+    
+    @*foreach (var node in typedMultiNodeTreePicker)
+{
+    <p>@node.BenefitTitle</p>
+}*@

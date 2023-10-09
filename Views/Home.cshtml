@@ -1,0 +1,7 @@
+﻿
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+@await Html.GetBlockGridHtmlAsync(Model.Content)

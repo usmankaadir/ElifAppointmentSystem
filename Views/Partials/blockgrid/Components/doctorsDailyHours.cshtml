@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DoctorsDailyHours>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    //var sideImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+   //var title = Model.Content.EducationTitle;
+}
+<br><br>
+@if(Model != null)
+{
+
+<p>@Model.Content.TimeFrom</p>
+<p>@Model.Content.TimeTo</p>
+
+}

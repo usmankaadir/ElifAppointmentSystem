@@ -1,0 +1,155 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Testimonials>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var _scanImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("testimonials");
+    //var _image = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+    //var typedMultiNodeTreePicker = Model.Content.PromoCards;
+}
+<!-- testimonial Section Starts -->
+    <section class="space-ptb bkg-gray">
+      <div class="container">
+        <div class="swiper mySwiper testimonial">
+          <div class="swiper-wrapper testimonial-grid">
+            <div class="swiper-slide">
+              <div class="testimonial-info">
+                <div class="row">
+                  <div class="col-lg-3 text-center testimonial-img">
+                    <img class="img-fluid" src="" alt="" />
+                  </div>
+                  <div class="col-lg-9 testimonial-content">
+                    <div class="testimonial-header mb-4">
+                      <h5 class="mb-2">Testimonials</h5>
+                      <h2>What Our Clients Says</h2>
+                    </div>
+                    <div class="testimonial-detail">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </p>
+                      <h6><span>John Doe </span>New York</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-info">
+                <div class="row">
+                  <div class="col-lg-3 text-center testimonial-img">
+                    <img class="img-fluid" src="/assets/imgs/client-02.jpg" alt="" />
+                  </div>
+                  <div class="col-lg-9 testimonial-content">
+                    <div class="testimonial-header mb-4">
+                      <h5 class="mb-2">Testimonials</h5>
+                      <h2>What Our Clients Says</h2>
+                    </div>
+                    <div class="testimonial-detail">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </p>
+                      <h6><span>Ammanda Warren </span> Florida</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-info">
+                <div class="row">
+                  <div class="col-lg-3 text-center testimonial-img">
+                    <img class="img-fluid" src="/assets/imgs/client-04.jpg" alt="" />
+                  </div>
+                  <div class="col-lg-9 testimonial-content">
+                    <div class="testimonial-header mb-4">
+                      <h5 class="mb-2">Testimonials</h5>
+                      <h2>What Our Clients Says</h2>
+                    </div>
+                    <div class="testimonial-detail">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </p>
+                      <h6><span>Veronica </span>California</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-info">
+                <div class="row">
+                  <div class="col-lg-3 text-center testimonial-img">
+                    <img class="img-fluid" src="/assets/imgs/client-05.jpg" alt="" />
+                  </div>
+                  <div class="col-lg-9 testimonial-content">
+                    <div class="testimonial-header mb-4">
+                      <h5 class="mb-2">Testimonials</h5>
+                      <h2>What Our Clients Says</h2>
+                    </div>
+                    <div class="testimonial-detail">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </p>
+                      <h6><span>Richard </span>Michigan</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-info">
+                <div class="row">
+                  <div class="col-lg-3 text-center testimonial-img">
+                    <img class="img-fluid" src="/assets/imgs/client-03.jpg" alt="" />
+                  </div>
+                  <div class="col-lg-9 testimonial-content">
+                    <div class="testimonial-header mb-4">
+                      <h5 class="mb-2">Testimonials</h5>
+                      <h2>What Our Clients Says</h2>
+                    </div>
+                    <div class="testimonial-detail">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </p>
+                      <h6><span>Betty Carlson </span>Georgia</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prev-btn swiper-button-next"></div>
+          <div class="prev-btn swiper-button-prev"></div>
+          <!-- <div class="swiper-pagination"></div> -->
+        </div>
+      </div>
+    </section>
+<!-- testimonial Section Ends  -->

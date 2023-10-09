@@ -1,0 +1,87 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+	var masterData = (Master_Data)Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "master_Data");
+    var currentPage = UmbracoContext.PublishedRequest.PublishedContent;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+ <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Bootstrap/bootstrap.min.css")" />
+  
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+
+  <!-- font awesom -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Font-awesome/all.min.css")" />
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Font-awesome/fontawesome.min.css")" />
+
+  <!-- owl carousal min.css -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Owl-carousal/owl-carousal.min.css")" />
+
+  <!-- owl carousal theme min.css -->
+ <link rel="stylesheet" href="@Url.Content("~/assets/css/Owl-carousal/owl-carousal-theme.min.cs")" />
+ 
+  <!-- swiper css -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Swiper/swiper.min.css")" />
+  
+  <!-- Include jQuery UI CSS for Datepicker styles -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/jquery-datepicker/jquery-ui-datepicker.css")" />
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/jquery-datepicker/jquery-ui.min.css")" />
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/jquery-datepicker/jquery-ui.theme.min.css")" />
+ 
+  <!-- AOS Liberaries -->
+  <link rel="stylesheet" href="@Url.Content("~/assets/css/Aos/cdnjs/aos.css")" />
+</head>
+
+<body data-aos-easing="ease" data-aos-duration="1200" data-aos-delay="0">
+    
+    @Html.Partial("~/Views/Partials/Navigation Folder/header.cshtml", masterData)
+   <main>
+        @RenderBody()
+    </main>
+    @Html.Partial("~/Views/Partials/Navigation Folder/Footer.cshtml", masterData)
+    
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="@Url.Content("~/assets/javascript/Popper/popper.min")"></script>
+    <script src="@Url.Content("~/assets/javascript/Bootstrap/bootstrap.min.js")"></script>
+
+  <!-- jquery snippet -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="@Url.Content("~/assets/javascript/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("~/assets/javascript/jquery/jquery-3.6.0.min.js")"></script>
+    <script src="@Url.Content("~/assets/javascript/jquery/jquery-ui.min.js")"></script>
+  
+
+    <!-- Include jQuery UI library -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- js link -->
+    <script src="@Url.Content("~/assets/javascript/script.js")"></script>
+  
+    <!-- AOS javascript Link -->
+    <script src="@Url.Content("~/assets/javascript/aos/cdnjs/aos.js")"></script>
+
+  <!-- owl carousal min.js -->
+  <script src="@Url.Content("~/assets/javascript/owl-carousal/owl.carousel.min.js")"></script>
+
+  <!-- swiper js -->
+  <script src="@Url.Content("~/assets/javascript/Swiper/swiper.min.js")"></script>
+  <script src="@Url.Content("~/assets/javascript/carousal.js")"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var siteLogo = Model.Value<IPublishedContent>("SiteLogo");
+    var header = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "header");
+    var headerTypes = header != null ? header.Children(x => x.ContentType.Alias == "link") : null;
+    var currentPage = UmbracoContext.PublishedRequest.PublishedContent;
+}
+<!-- footer -->
+<footer>
+<section class="footer-section bkg-gray">
+  <div class="container" data-aos="fade-up">
+    <div class="footer-top py-5">
+      <div class="row">
+        <div class="col-lg-3 col-md-4">
+          <div class="footer-widget">
+            <div class="footer-logo mb-2">
+              <a href="#"><img class="img-fluid" src="@(siteLogo != null ? siteLogo.Url() : "")" alt="@siteLogo.Name" /></a>
+            </div>
+            <div class="footer-about">
+              <p>
+                Lorem ipsum dolor sit amet viral, consectetur
+                adipisicing elit. Deserunt fuga iste aliquam! Odio,
+                mollitia non!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <div class="footer-widget">
+            <div class="footer-title mb-2">
+              <h2>For Patients</h2>
+            </div>
+            <div class="footer-menu">
+              <ul class="m-0 p-0">
+                <li class="mb-2"><a href="#">Search for Doctors</a></li>
+                <li class="mb-2"><a href="#">Login</a></li>
+                <li class="mb-2"><a href="#">Register</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4">
+          <div class="footer-widget">
+            <div class="footer-title mb-2">
+              <h2>For Doctors</h2>
+            </div>
+            <div class="footer-menu">
+              <ul class="m-0 p-0">
+                <li class="mb-2"><a href="#">Appointments</a></li>
+                <li class="mb-2"><a href="#">Chats</a></li>
+                <li class="mb-2"><a href="#">Login</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-5">
+          <div class="footer-widget">
+            <div class="footer-title mb-2">
+              <h2>Contact Us</h2>
+            </div>
+            <div class="footer-contact-info">
+              <div class="footer-address">
+                <p>
+                  <i class="fa-solid fa-location-dot"></i> 3556 Street,
+                  USA
+                </p>
+              </div>
+              <div class="footer-address">
+                <p>
+                  <i class="fa-solid fa-phone-volume"></i> +1 315 369
+                  5943
+                </p>
+              </div>
+              <div class="footer-address mb-0">
+                <p>
+                  <i class="fa-solid fa-envelope"></i> admin@gmail.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-7">
+          <div class="footer-widget">
+            <div class="footer-title mb-2">
+              <h2>Join Our Newsletter</h2>
+            </div>
+            <div class="subscribe-form mb-4">
+              <form action="">
+                <input type="email" class="form-control" placeholder="Enter Email" />
+                <button class="btn btn-primary" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
+            <div class="social-icons">
+              <ul>
+                <li>
+                  <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer bottom -->
+    <div class="footer-bottom">
+      <div class="copyright">
+        <div class="row">
+          <div class="col-md-6 col-lg-6">
+            <div class="copyright-text">
+              <p class="mb-0">
+                Copyright &copy; 2023
+                <a href="#">Dreamguys.</a> All Rights Reserved
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <div class="copyright-menu">
+              <ul class="policy-menu">
+                <li>
+                  <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="#">Terms and Conditions</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- footer ends -->
+</footer>

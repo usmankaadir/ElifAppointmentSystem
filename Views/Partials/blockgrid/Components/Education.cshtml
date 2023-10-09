@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Education>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    //var sideImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+   //var title = Model.Content.EducationTitle;
+}
+<br><br>
+@if(Model != null)
+{
+<h1>@Model.Content.EducationTitle</h1>
+<p>@Model.Content.Degree</p>
+<p>@Model.Content.Collage</p>
+<p>@Model.Content.YearOfCompletion</p>
+
+}

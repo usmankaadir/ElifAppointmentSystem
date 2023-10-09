@@ -1,0 +1,9 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<SlotDuration>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+}
+<br><br>
+@if(Model != null)
+{
+<button class="btn default">@Model.Content.TimeFrom - @Model.Content.TimeTo</button>
+}
