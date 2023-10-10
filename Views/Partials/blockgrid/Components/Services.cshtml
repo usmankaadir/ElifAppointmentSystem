@@ -2,12 +2,10 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 }
-<br><br>
+
 @if(Model != null)
 {
-<h1>@Model.Content.ServiceTitle</h1>
- @foreach(var item in Model.Content.Value<string>("addService").Split(','))
-    { 
-        <li>@item</li>
-    }
+
+<span>@Model.Content.Value("addService")</span>
+    
 }

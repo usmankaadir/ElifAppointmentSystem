@@ -1,0 +1,60 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Slider>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var _iconImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("iconImage");
+    var links = Model.Content.ButtonLink;
+    var typedMultiNodeTreePicker = Model.Content.Carousals;
+}
+<!-- Our Partners starts  -->
+      <section class="space-ptb">
+        <div class="container our-partner">
+          <div class="row text-center">
+            <div class="col-md-12" data-aos="fade-up">
+              <div class="section-header d-flex justify-content-center">
+                <h2 class="section-title">
+                  Our Partners
+                  <img src="/assets/imgs/plus-icon.svg" alt="" />
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="owl-carousel owl-theme" data-aos="fade-up">
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos1.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos2.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos3.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos4.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos5.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos6.svg" alt="" /></a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="logo-img">
+                <a href="#"><img class="img-fluid" src="/assets/imgs/logos1.svg" alt="" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Our Partners ends -->
