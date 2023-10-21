@@ -1,0 +1,35 @@
+﻿
+
+<div class="my-5">
+    <div class="form-floating">
+        <input class="form-control" id="name" type="text" placeholder="Enter your name..." required />
+        <label for="name">Name</label>
+        <div class="text-danger d-none" id="nameValidation">A name is required.</div>
+    </div>
+    <div class="form-floating">
+        <input class="form-control" id="email" type="email" placeholder="Enter your email..." required />
+        <label for="email">Email address</label>
+        <div class="text-danger d-none" id="emailValidation">A email is required.</div>
+    </div>
+    <div class="form-floating">
+        <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." required />
+        <label for="phone">Phone Number</label>
+        <div class="text-danger d-none" id="phoneValidation">A phone number is required.</div>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" id="message" placeholder="Enter your message here..." style="height: 12rem" required></textarea>
+        <label for="message">Message</label>
+        <div class="text-danger d-none" id="messageValidation">A message is required.</div>
+    </div>
+    
+    <div id="html_element" class="mt-2 mb-2"></div>
+    <input required type="text" name="googleRecaptchaToken" id="googleRecaptchaToken" class="form-control" hidden/>
+    <div class="text-danger mb-2 d-none" id="googleRecaptchaTokenValidation">A Recaptcha is required.</div>
+   
+    <button class="btn btn-primary text-uppercase" id="contact-submit" type="submit">Send</button>
+</div>
+
+<partial name="ContactUs/_FeedbackFormSuccess" />
+<partial name="ContactUs/_FeedbackFormFailure" />
+
+<script src="~/Views/Partials/ContactUs/_feedbackform.cshtml.js" defer></script>

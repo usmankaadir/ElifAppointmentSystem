@@ -49,7 +49,7 @@ $(document).ready(function () {
     smartSpeed: 1500,
   });
 
-  var owl = $(".owl-carousel");
+  var owl = $(".partner-carousel");
   owl.owlCarousel({
     items: 6,
     loop: true,

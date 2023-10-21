@@ -13,82 +13,615 @@
     var currentPage = UmbracoContext.PublishedRequest.PublishedContent;
 }
 <!-- Navbar starts -->
-    <nav class="navbar bkg-gray navbar-expand-lg fixed-top py-2 header-one">
-      <div class="container p-0">
-        <!-- sidebar -->
-        <!-- logo -->
-        <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <i class="fa-solid fa-bars-staggered" style="color: #0e82fd; font-size: 28px"></i>
-        </button>
-        <a class="navbar-brand" href="/Index.html"><img src="@(siteLogo != null ? siteLogo.Url() : "")" alt="@siteLogo.Name" class="w-100" /></a>
+      <nav class="navbar bkg-gray navbar-expand-lg fixed-top py-2 header-one">
+        <div class="container p-0">
+          <!-- sidebar -->
+          <!-- logo -->
+          <button
+            class="navbar-toggler shadow-none border-0"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation"
+          >
+            <i
+              class="fa-solid fa-bars-staggered"
+              style="color: #0e82fd; font-size: 28px"
+            ></i>
+          </button>
+          <a class="navbar-brand" href="/Index.html"
+            ><img src="/assets/imgs/logo.png" alt="" class="w-100"
+          /></a>
 
-        <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel">
-          <!-- sidebar header -->
-          <div class="offcanvas-header text-white bg-light border-bottom">
-            <a class="navbar-brand img-fluid" href="#"><img src="/assets/imgs/logo.png" alt="" /></a>
+          <div
+            class="sidebar offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+          >
+            <!-- sidebar header -->
+            <div class="offcanvas-header text-white bg-light border-bottom">
+              <a class="navbar-brand img-fluid" href="#"
+                ><img src="/assets/imgs/logo.png" alt=""
+              /></a>
 
-            <button type="button" class="shadow-none border-0 bg-light" style="color: #0e82fd; font-size: 28px"
-              data-bs-dismiss="offcanvas" aria-label="Close">
-              <i class="fa-solid fa-light fa-xmark"></i>
-            </button>
-          </div>
-          <!-- sidebar body -->
-          <div class="offcanvas-body ms-4 px-md-0">
-            <ul class="navbar-nav justify-content-center p-0">
-                 
-                   
-                 @if(header != null)
-                 {
-                    <li class="nav-item">
-                        <a class="nav-link active" href="@header.Url()">@header.Name</a>
-                    </li>    
-                  }  
-                @if(headerTypes != null)
-                    {
-                    <li class="nav-item dropdown">
-                        <i class="fa-solid fa-chevron-down toggle-down"></i>
-                        <a class="nav-link active" href="@header.Url()" role="button" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          @header.Name
-                        </a>
-                        <ul class="dropdown-menu p-0 mt-3">
-                    @foreach(var headerType in headerTypes)
-                        {
-                            var subTypes = headerType.Children.Where(x => x.ContentType.Alias == "link"); 
-                            <li>
-                                <a class="dropdown-item" href="@headerType.Url()">@headerType.Name</a>
-                            </li>
-                            @if(subTypes != null)
-                            {
-                            <li class="nav-item dropend">
-                                <i class="fa-solid fa-chevron-right toggle-right"></i>
-                                <a class="nav-link active dropdown-item" href="@headerType.Url()" role="button" data-bs-toggle="dropdown"
-                                  aria-expanded="false">
-                                  @headerType.Name
-                                </a>
-                                <ul class="dropdown-menu p-0 mt-2 mx-0" data-aos="fade-up" data-aos-delay="1000">
-                                @foreach(var subType in subTypes)
-                                {    
-                                  <li>
-                                    <a class="dropdown-item" href="@subType.Url()">@subType.Name</a>
-                                  </li>
-                                }
-                                </ul>
-                                
-                            </li>
-                            
-                        }    
-                      }
-                    
-                    
-                </ul>
-              </li>
-              }
-            </ul>
+              <button
+                type="button"
+                class="shadow-none border-0 bg-light"
+                style="color: #0e82fd; font-size: 28px"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
+                <i class="fa-solid fa-light fa-xmark"></i>
+              </button>
+            </div>
+            <!-- sidebar body -->
+            <div class="offcanvas-body ms-4 px-md-0">
+              <ul class="navbar-nav justify-content-center p-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="Index.html"> Home </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="/doctors-dashboard.html"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Doctors
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li>
+                      <a class="dropdown-item" href="/doctors-dashboard.html"
+                        >Doctors Dashboard</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/appointments.html"
+                        >Appointments</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/schedule-timings.html"
+                        >Schedule Timing</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/my-patient.html"
+                        >Patient List</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/patient-profile.html"
+                        >patients Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/chat.html">Chat</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/invoices.html"
+                        >Invoices</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="/doctor-profile-setting.html"
+                        >Profile Settings</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/reviews.html">Reviews</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/doctor-register.html"
+                        >Doctor Register</a
+                      >
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Blog
+                      </a>
+                      <ul
+                        class="dropdown-menu p-0 mt-2 mx-0"
+                        data-aos="fade-up"
+                        data-aos-delay="1000"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="/doctor-blog.html"
+                            >Blog</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="/Blog-detail.html"
+                            >Blog View</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="/patient.html"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Patients
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Doctors
+                      </a>
+                      <ul
+                        class="dropdown-menu p-0 mt-2 mx-0"
+                        data-aos="fade-up"
+                        data-aos-delay="1000"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="/map-grid.html"
+                            >Map Grid</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="/map-list.html"
+                            >Map List</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Search Doctor
+                      </a>
+                      <ul
+                        class="dropdown-menu p-0 mt-2 mx-0"
+                        data-aos="fade-up"
+                        data-aos-delay="1000"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="/search-doctor-1.html"
+                            >Search Dcotor 1</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="/search-doctor-2.html"
+                            >Search Doctor 2</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li>
+                      <a class="dropdown-item" href="/doctor-profile.html"
+                        >Doctor Profile</a
+                      >
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Booking
+                      </a>
+                      <ul
+                        class="dropdown-menu p-0 mt-2 mx-0"
+                        data-aos="fade-up"
+                        data-aos-delay="1000"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="/Booking-1.html"
+                            >Booking 1</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="/Booking-2.html"
+                            >Booking 2</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/checkout.html"
+                        >Checkout</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/booking-success.html"
+                        >Booking Success</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/patient-dashboard.html"
+                        >Patient Dashboard</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/favourites.html"
+                        >Favourites</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/chat-patient.html"
+                        >Chat</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="/patient-profile-setting.html"
+                        >Profile Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/patient-change-pass.html"
+                        >Change Password</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Pharmacy
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li>
+                      <a class="dropdown-item" href="/pharmacy.html"
+                        >Pharmacy</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/pharmacy-details.html"
+                        >Pharmacy Details</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/pharmacy-search.html"
+                        >Pharmacy Search</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/product.html">Product</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/product-description.html"
+                        >Product Description</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/cart.html">Cart </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/Product-Checkout.html"
+                        >Product Checkout
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/Payment-success.html"
+                        >Payment success
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/Pharmacy-Register.html"
+                        >Pharmacy Register
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Pages
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li>
+                      <a class="dropdown-item" href="about-us.html">About Us</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="Contact-us.html"
+                        >Contact Us</a
+                      >
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Call
+                      </a>
+                      <ul
+                        class="dropdown-menu p-0 mt-2 mx-0"
+                        data-aos="fade-up"
+                      >
+                        <li>
+                          <a class="dropdown-item" href="/voice-call.html"
+                            >Voice Call</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="/video-call.html"
+                            >Video Call</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Invoices
+                      </a>
+                      <ul class="dropdown-menu p-0 mt-2 mx-0">
+                        <li>
+                          <a class="dropdown-item" href="invoices.html"
+                            >Invoices</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="invoice-view.html"
+                            >Invoice view</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Authentication
+                      </a>
+                      <ul class="dropdown-menu p-0 mt-2 mx-0">
+                        <li>
+                          <a class="dropdown-item" href="/login-email.html"
+                            >Login Email</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="login-phone.html"
+                            >Login Phone</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="doctor-signup.html"
+                            >Doctor Signup</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="Patient-signup.html"
+                            >Patient Signup</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="forgot-pass.html"
+                            >Forget Password 1</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="forgot-pass2.html"
+                            >Forget Password 2</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="login-email-otp.html"
+                            >Email OTP</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="login-phone-otp.html"
+                            >Phone OTP</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="nav-item dropend">
+                      <i class="fa-solid fa-chevron-right toggle-right"></i>
+                      <a
+                        class="nav-link active dropdown-item"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Error Pages
+                      </a>
+                      <ul class="dropdown-menu p-0 mt-2 mx-0">
+                        <li>
+                          <a class="dropdown-item" href="Error-404.html"
+                            >404 Error</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="Error-500.html"
+                            >500 Error</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="Starter-Page.html"
+                        >Starter Page</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="Pricing-plan.html"
+                        >Pricing Plan</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="faq.html">FAQ</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="Maintenance.html"
+                        >Maintenance</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="coming-soon.html"
+                        >Coming Soon</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="terms-and-consition.html"
+                        >Terms and Consitions</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Blog
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li>
+                      <a class="dropdown-item" href="blog-list.html"
+                        >Blog List</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="blog-grid.html"
+                        >Blog Grid</a
+                      >
+                    </li>
+
+                    <li>
+                      <a class="dropdown-item" href="blog-detail.html"
+                        >Blog Details</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <i class="fa-solid fa-chevron-down toggle-down"></i>
+                  <a
+                    class="nav-link active"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Admin
+                  </a>
+                  <ul class="dropdown-menu p-0 mt-3">
+                    <li>
+                      <a class="dropdown-item" href="Admin.html">Admin</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="pharmacy-admin.html"
+                        >Pharmacy Admin</a
+                      >
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item search-icon">
+                  <span class="icon">
+                    <i class="fas fa-magnifying-glass"></i>
+                  </span>
+                  <div class="toggle-search">
+                    <form action="">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="searchInput"
+                        />
+                        <button class="btn btn-primary" type="submit">
+                          Search
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+                <li class="nav-buttons">
+                  <div class="nav-item register-btn">
+                    <a href="/register.html" class="btn"
+                      ><i class="px-2 fas fa-user"></i>Register</a
+                    >
+                  </div>
+                  <div class="nav-item login-btn">
+                    <a href="/login.html" class="btn"
+                      ><i class="px-2 fa-solid fa-lock"></i> Log in</a
+                    >
+                  </div>
+                </li>
+                <li class="login-signup">
+                  <a href="#">Login / signup</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
-    <!-- Navbar ends  -->
+      </nav>
+      <!-- Navbar ends  -->

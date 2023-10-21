@@ -1,5 +1,30 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Search>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
 @{
-	Layout = "master.cshtml";
+	Layout = null;
+	
+	
+    
+    var searchTerm = Context?.Request?.Query["query"].ToString()!;
+
 }
+
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                
+                @if (string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    <p>Enter search term</p>
+                }
+
+                
+                    <partial name="Search/_UmbracoSearch" model="(searchTerm, Umbraco)" />
+                
+            </div>
+        </div>
+    </div>
+</main>

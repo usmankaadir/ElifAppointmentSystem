@@ -1,0 +1,106 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Profile>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+     var docTiming = Model.Value<BlockGridModel>("doctorsTimeSlot");
+     //Date, Time & Days
+    string currentDateTime = DateTime.Now.ToString("dd MMM yyyy");
+
+    string[] weekDayNames = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+    string toDay = DateTime.Now.DayOfWeek.ToString();
+}
+
+<div class="business-hours">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3">
+                                        <div class="widget-business">
+                                            <div class="listing-hours">
+                                                <div class="listing-day current">
+                                                    <div class="day">
+                                                        Today <span>@currentDateTime</span>
+                                                    </div>
+                                                    <div class="time-items text-end">
+                                                        <!--Open / Closed Determinig-->
+                                                        @if (docTiming != null)
+                                                        {
+                                                            @if (docTiming.Any(timings => timings.Content.Value<IEnumerable<string>>("doctorsWeekDays").Any(a => a.Contains(toDay))))
+                                                            {
+                                                                    <span class="open-status mb-2">
+                                                                        <span class="badge bg-success-light">
+                                                                            Open Now
+                                                                        </span>
+                                                                    </span>  
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="time-items closed">
+                                                                    <span class="badge bg-danger-light">
+                                                                        Closed
+                                                                    </span>
+                                                                </div>
+                                                            }
+
+                                                        }
+                                                        <!--Current Day(Today) Slots (if available)-->
+                                                        @if (docTiming != null)
+                                                        {
+                                                            foreach (var timings in docTiming)
+                                                            {
+                                                                var currentDay = timings.Content.Value<IEnumerable<String>>("doctorsWeekDays").Where(a => a.Contains(toDay)).FirstOrDefault();
+                                                                if (currentDay != null && currentDay != String.Empty)
+                                                                {
+                                                                    if (timings.Content.HasValue("timeFrom") && timings.Content.Value("timeFrom") is DateTime timeFrom
+                                                                    && timings.Content.HasValue("timeTo") && timings.Content.Value("timeTo") is DateTime timeTo)
+                                                                    {
+                                                                        <span class="time">@timeFrom.ToString("HH:mm") - @timeTo.ToString("HH:mm")</span>
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <!--Available Slots along their Days Code-->
+                                                @if(docTiming != null)
+                                                {
+                                                    @foreach (var day in weekDayNames)
+                                                    {
+                                                        <div class="listing-day">
+                                                            <div class="day">@day</div>
+                                                            <div class="time-items">
+                                                                @foreach (var timings in docTiming)
+                                                                {
+                                                                    var currentDay = timings.Content.Value<IEnumerable<string>>("doctorsWeekDays").Where(a => a.Contains(day)).FirstOrDefault();
+                                                                    if (!string.IsNullOrEmpty(currentDay))
+                                                                    {
+                                                                        if (timings.Content.HasValue("timeFrom") && timings.Content.Value("timeFrom") is DateTime timeFrom
+                                                                        && timings.Content.HasValue("timeTo") && timings.Content.Value("timeTo") is DateTime timeTo)
+                                                                        {
+                                                                            <span class="time">@timeFrom.ToString("HH:mm") - @timeTo.ToString("HH:mm")</span>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                @if (!docTiming.Any(timings => timings.Content.Value<IEnumerable<string>>("doctorsWeekDays").Any(a => a.Contains(day))))
+                                                                {
+                                                                    <div class="time-items closed">
+                                                                        <span class="badge bg-danger-light">
+                                                                            Closed
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+

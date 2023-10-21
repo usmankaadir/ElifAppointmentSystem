@@ -1,0 +1,185 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var _patients = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "patients");
+    var _patientProfile = _patients != null ? _patients.Children(x => x.ContentType.Alias == "patientProfile").OrderByDescending(x => x.CreateDate) : null;
+    IPublishedContent _selectDoctor = _patients.Value<IPublishedContent>("selectDoctor");
+
+
+}
+ <!-- ==================Dashboard starts============= -->
+    @Html.Partial("~/Views/Partials/Banner/miniBanner.cshtml", Model)
+    <!-- ==================Dashboard Ends============= -->
+
+ <!-- ==================main content start============= -->
+      <section class="space-ptb">
+        <div class="main-content">
+          <div class="container">
+            <div class="row">
+              <!-- ============Admin sidebar=============== -->
+              <div class="col-md-5 col-lg-4 col-xl-3 admin-sidebar">
+                <div class="is-sticky">
+                  <div class="profile-sidebar">
+                    <div class="widget-profile">
+                      <div class="profile-info">
+                        <a href="" class="doc-profile-img">
+                          <img
+                            src="/assets/imgs/doctor-thumb-02.jpg"
+                            alt="doc-img"
+                          />
+                        </a>
+                      </div>
+                      <div class="doc-profile-info">
+                          @if (_selectDoctor != null)
+                            {
+                                <h3>@_selectDoctor.Name</h3>
+                            }
+
+                        
+                        <p class="mb-0">
+                          BDS, MDS - Oral &amp; Maxillofacial Surgery
+                        </p>
+                      </div>
+                    </div>
+                    <div class="dashboard-widget">
+                      <nav class="dashboard-menu">
+                        <ul class="p-0 m-0 doc-nav">
+                          <li>
+                            <a href="doctors-dashboard.html">
+                              <i class="fas fa-columns"></i>
+                              <span>Dashboard</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="appointments.html">
+                              <i class="fas fa-calendar-check"> </i>
+                              <span>Appointments</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="my-patient.html">
+                              <i class="fas fa-user-injured"> </i>
+                              <span>My Patients</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="schedule-timings.html">
+                              <i class="fas fa-hourglass-start"> </i>
+                              <span>Schedule Timing</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="available-timing.html">
+                              <i class="fas fa-clock-four"> </i>
+                              <span>Available Timing</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="invoices.html">
+                              <i class="fas fa-file-invoice"> </i>
+                              <span>Invoices</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="accounts.html">
+                              <i class="fas fa-file-invoice-dollar"> </i>
+                              <span>Accounts</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="reviews.html">
+                              <i class="fas fa-star"> </i>
+                              <span>Reviews</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="chat.html">
+                              <i class="fas fa-comments"> </i>
+                              <span>Messages</span>
+                              <small class="unread-msgs">23</small>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="doctor-profile-setting.html">
+                              <i class="fas fa-user-cog"> </i>
+                              <span>Profile Settings</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="social-media.html">
+                              <i class="fas fa-share-alt"> </i>
+                              <span>Social Media</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="change-pass.html">
+                              <i class="fas fa-lock"> </i>
+                              <span>Change Password</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="login.html">
+                              <i class="fas fa-sign-out-alt"> </i>
+                              <span>Log Out</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-lg-8 col-xl-9">
+                <!-- ==============Main Content============= -->
+                <div class="all-patients">
+                  <div class="row row-grid">
+                    @foreach(var item in _patientProfile)
+                    {
+                     
+                     var uploadImage = item.Value<string>("uploadImage");
+    
+                     <div class="col-lg-4 col-md-6 col-xs-3">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="widget-profile p-0">
+                            <div class="profile-info">
+                              <a
+                                href=""
+                                class="doc-profile-img"
+                                style="background: none"
+                              >
+                                <img src="@uploadImage"  alt="" />
+                              </a>
+                            </div>
+                            <div class="doc-profile-info">
+                              <h3>@item.Value("firstName") @item.Value("lastName")</h3>
+                              <h5 class="mb-2"><b>patient ID: </b> @item.Id</h5>
+                              <h5 class="mb-4">
+                                <i class="fas fa-location-dot"></i>
+                                @item.Value("city") @item.Value("state")
+                              </h5>
+                            </div>
+                          </div>
+                          <div class="patient-detail mt-4">
+                            <ul>
+                              <li>Phone <span>@item.Value("phone")</span></li>
+                              <li>Age <span>@item.Value("age"), @item.Value("gender")</span></li>
+                              <li>Blood Group <span>@item.Value("bloodGroup")</span></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==================main content Ends============= -->

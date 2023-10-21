@@ -1,0 +1,30 @@
+﻿@inherits UmbracoViewPage<ElifAppointmentSystem.Models.patientDetails>
+
+
+<form action="/PatientDetails/Create" method="post">
+    <div class="mb-4">
+        <label for="AppointmentFor">Appointment For</label>
+        <input type="text" name="AppointmentFor" class="form-control" id="AppointmentFor" />
+    </div>
+    <div class="mb-4">
+        <label for="DependantId">Dependant Id</label>
+        <input type="number" name="DependantId" class="form-control" id="DependantId" />
+    </div>
+    <div class="mb-4">
+        <label for="HasInsurance">Has Insurance</label>
+        <input type="checkbox" name="HasInsurance" class="form-control" id="HasInsurance" />
+    </div>
+    <div class="mb-4">
+        <label for="ReviewDesc">Review Description</label>
+        <textarea name="ReviewDesc" class="form-control" id="ReviewDesc"></textarea>
+    </div>
+    <div class="mb-4">
+        <label for="Attachment">Attachment</label>
+        <input type="file" name="Attachment" class="form-control" id="Attachment" />
+    </div>
+    <div class="mb-4">
+        <label for="Symptoms">Symptoms</label>
+        <input type="text" name="Symptoms" class="form-control" id="Symptoms" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

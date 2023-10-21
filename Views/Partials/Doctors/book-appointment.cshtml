@@ -1,0 +1,348 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Appointment>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+    //var slotDuration = Model.Value<BlockGridModel>("availableSlots"); 
+   // IPublishedContent _selectDoctor = Model.Value<IPublishedContent>("selectDoctor");
+   
+
+
+        // Get the content picker property value.
+       //var contentItem = slotDuration.First().Value<IPublishedContent>("aBC");
+
+        //foreach (var item in slotDuration)
+       // {
+            // Get the value of a property on the selected document.
+           // var title = contentItem.Value<string>("title");
+        //}
+        
+        
+    //IPublishedContent typedContentPicker = Model.Value<IPublishedContent>("aBC");
+    //if (typedContentPicker != null)
+    //{
+        //<p>@typedContentPicker.Name</p>
+         //var propertyValue = typedContentPicker.Value<BlockGridModel>("availableSlots");
+       // <p>@propertyValue.Name</p>
+  //  }
+ 
+    string[] doctDuration = { "Morning", "Afternoon", "Evening"};
+
+
+    // Date, Time & Days
+    DateTime currentDate = DateTime.Now;
+
+    // Get the day of the month
+    int dayOfMonth = currentDate.Day;
+
+    // Get the day name for the current date
+    string dayName = currentDate.ToString("dddd");
+
+    // Get the current date formatted as "dd MMM yyyy"
+    string currentDateTime = currentDate.ToString("dd MMM yyyy");
+
+    string[] weekDayNames = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+    string toDay = currentDate.DayOfWeek.ToString();
+
+    // Get the first day of the current month
+    DateTime firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+
+    // Get the last day of the current month
+    DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+
+    IPublishedContent typedContentPicker = Model.Value<IPublishedContent>("availableSlots");
+  
+
+}
+
+      <!-- ==================Dashboard starts============= -->
+      <section class="dashboard-section bkg-gray">
+        <div class="container">
+          <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+              <h2 class="breadcrumb-title">Booking</h2>
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="Index.html">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Booking
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==================Dashboard Ends============= -->
+      
+      
+    @if (typedContentPicker != null)
+    {
+    var docTiming = typedContentPicker.Value<BlockGridModel>("doctorsTimeSlot");
+        var slotsDuration = typedContentPicker.Value<BlockGridModel>("slotsDuration");
+        var propertyValue = typedContentPicker.Value<BlockGridModel>("services");
+        <p>@typedContentPicker.Name</p>
+        <p>@typedContentPicker.Value("addEducation")</p>
+        // Access the "availableSlots" property as a grid.
+        
+        
+
+        // Loop through the grid items.
+        <div class="row">
+                            @if (slotsDuration != null)
+                          {
+                                @foreach (var slot in doctDuration)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="time-slot text-center">
+                                            <h4>@slot</h4>
+                                            <div>
+                                                <ul class="time-slot-list">
+                                                    @foreach (var timings in slotsDuration)
+                                                    {
+                                                        var currentSlot = timings.Content.Value<IEnumerable<string>>("dropdown").Where(a => a.Contains(slot)).FirstOrDefault();
+                                                        if (!string.IsNullOrEmpty(currentSlot))
+                                                        {
+                                                            if (timings.Content.HasValue("timeFrom") && timings.Content.Value("timeFrom") is DateTime timeFrom
+                                                            && timings.Content.HasValue("timeTo") && timings.Content.Value("timeTo") is DateTime timeTo)
+                                                            {
+                                                                <li>
+                                                                    <a href="javascript:void(0)"
+                                                                       class="timing available-slots">
+                                                                        <span>
+                                                                            <i class="fa-regular fa-clock"></i>
+                                                                            @timeFrom.ToString("HH:mm") - @timeTo.ToString("HH:mm")
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                          }
+                        </div>
+    }
+    
+      
+
+      <!-- ==================main content start============= -->
+      <section class="space-ptb">
+        <div class="container">
+          <div class="row Booking">
+            <div class="col-lg-8 col-md-12">
+              <div class="booking-header pb-4">
+                <h4 class="booking-title">Select Available Slots</h4>
+              </div>
+              <div
+                class="booking-date choose-date-book pb-4 d-flex align-items-md-center flex-column flex-md-row"
+              >
+                <p class="mb-2 mb-md-0">Choose Date</p>
+                <div class="booking-range">
+                  <div
+                    id="reportrange"
+                    class="bookingRange btn d-flex align-items-center"
+                  >
+                    <img
+                      src="/assets/imgs/icons/today-icon.svg"
+                      alt="today icon"
+                    />
+                    <span>October 6, 2023 - October 12, 2023</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card Booking-card">
+                <div class="card-body time-slot-card">
+                  <div class="booking-date-slider mb-4">
+                    <ul class="date-slider-slick text-center">
+                      <li class="active">
+                        <h4>Monday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Tuesday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Wednesday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Thirsday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Friday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Saturday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Sunday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li class="active">
+                        <h4>Monday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Tuesday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Wednesday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Thirsday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Friday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Saturday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                      <li>
+                        <h4>Sunday</h4>
+                        <p>Sep 5</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="row">
+                     
+                    @*await Html.GetBlockGridHtmlAsync(Model.DailySlots)*@
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="booking-btn mb-3">
+                <div class="login-btn">
+                  <a href="/patient-detail.html" class="btn">
+                    Next <i class="fa-regular fa-circle-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="booking-header pb-4">
+                <h4 class="booking-title">Booking Summary</h4>
+              </div>
+              <div class="card booking-card">
+                <div class="card-body booking-card-body">
+                  <div
+                    class="booking-doctor-details d-flex align-items-center justify-content-between"
+                  >
+                    <div class="booking-doctor-left d-flex">
+                      <div class="booking-doctor-img avatar-img me-3">
+                        <img
+                          src="/assets/imgs/doctor-thumb-02.jpg"
+                          alt="doctor"
+                          class="rounded-circle"
+                        />
+                      </div>
+                      <div class="booking-doctor-info">
+                        <h4>
+                          <a href="/doctor-profile.html"> Dr. John Doe </a>
+                        </h4>
+                        <p>MBBS, Dentist</p>
+                      </div>
+                    </div>
+                    <div class="booking-doctor-right">
+                      <p class="d-flex">
+                        <i class="fas fa-check-circle verified me-3 mt-1"></i>
+                        <a href="/doctor-profile-setting.html">Edit</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card booking-card">
+                <div class="card-body booking-card-body">
+                  <div
+                    class="booking-doctor-details d-flex align-items-center justify-content-between"
+                  >
+                    <div class="booking-device d-flex">
+                      <div class="booking-device-img me-3">
+                        <img
+                          src="/assets/imgs/icons/device-message.svg"
+                          alt="device"
+                        />
+                      </div>
+                      <div class="booking-doctor-info">
+                        <h3>We can help you</h3>
+                        <p class="device-text">
+                          Call us +1 888-888-8888 (or) chat with our customer
+                          support team.
+                        </p>
+                        <div class="device-btn mt-3">
+                          <a href="chat.html" class="article-btn ms-0 p-2"
+                            >Chat With Us</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card booking-card">
+                <div class="card-body booking-card-body">
+                  <div
+                    class="booking-doctor-details d-flex align-items-center justify-content-between"
+                  >
+                    <div class="booking-device d-flex">
+                      <div class="booking-device-img me-3">
+                        <img
+                          src="/assets/imgs/icons/smart-phone.svg"
+                          alt="device"
+                        />
+                      </div>
+                      <div class="booking-doctor-info">
+                        <h3>Get the App</h3>
+                        <p class="device-text">
+                          Download our app for better experience and for more
+                          feature
+                        </p>
+                        <div class="app-images mt-3">
+                          <div
+                            class="social-apps aos-init aos-animate"
+                            data-aos="fade-up"
+                          >
+                            <a href="#">
+                              <img
+                                src="/assets/imgs/icons/google-img.svg"
+                                alt=""
+                              />
+                            </a>
+                            <a href="#">
+                              <img
+                                src="/assets/imgs/icons/app-img.svg"
+                                alt=""
+                              />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==================main content Ends============= -->

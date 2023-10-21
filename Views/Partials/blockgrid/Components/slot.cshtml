@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Slot>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+     var typedMultiNodeTreePicker = Model.Content.AppointmentSlots;
+}
+<h1>fjhg</h1>  
+                
+           @if (typedMultiNodeTreePicker != null)
+                {              
+ @foreach (var day in typedMultiNodeTreePicker)
+ {
+ var item = day as AppointmentSlots;
+ if (item != null)
+                        {
+                      
+<div class="col-md-4">
+                      <div class="time-slot text-center">
+                        
+                             <h4> @(item.Value<string>("slotDuration"))</h4>
+                        
+                        
+                        <div>
+                          <ul class="time-slot-list">
+                             @foreach (var itemPublished in item.Children)
+                    { 
+                            <li>
+                              <a
+                                href="javascript:void(0)"
+                                class="timing available-slots"
+                              >
+                                <span>
+                                  <i class="fa-regular fa-clock"></i>
+                                  09:00 - 09:30</span
+                                >
+                              </a>
+                            </li>
+                            }
+                          </ul>
+                        </div>
+                      </div>
+                    </div> 
+                    }
+                        }
+                    }
+                   
+                                    

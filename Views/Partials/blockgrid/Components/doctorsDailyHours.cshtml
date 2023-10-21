@@ -1,14 +1,19 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DoctorsDailyHours>>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-    //var sideImage = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
-   //var title = Model.Content.EducationTitle;
+ 
 }
-<br><br>
+
 @if(Model != null)
 {
-
-<p>@Model.Content.TimeFrom</p>
-<p>@Model.Content.TimeTo</p>
+<div class="listing-day">
+    @foreach (var day in Model.Content.DoctorsWeekDays)
+        {
+        <div class="day">@day</div>
+        }
+    <div class="time-items">
+        <span class="time">@Model.Content.TimeFrom - @Model.Content.TimeTo</span>
+    </div>
+</div>
 
 }

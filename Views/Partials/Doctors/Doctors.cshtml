@@ -4,26 +4,56 @@
 @using Umbraco.Cms.Core.Models.PublishedContent;
 
 @{
-    var _doctors = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "doctors");
+    //var _doctors = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "doctors");
     //var _doctorProfile = _doctors != null ? _doctors.Children(x => x.ContentType.Alias == "docotorProfile") : null;
 }
+ <section class="space-ptb">
+        <div class="container-fluid pt-2 mt-5">
+          <div class="row">
+            <div class="col-xl-7 col-lg-12 map-left">
+              <div class="row align-items-center mb-4">
+                <div class="col col-md-6">
+                  <h4>2244 Doctors Found</h4>
+                </div>
+                <div class="col-auto col-md-6">
+                  <div class="view-icons">
+                    <a href="/map-grid.html" class="grid-view">
+                      <i class="fas fa-th-large"></i>
+                    </a>
+                    <a href="/map-list.html" class="grid-view active">
+                      <i class="fas fa-bars"></i>
+                    </a>
+                  </div>
+                  <div class="sort-by">
+                    <apan class="sortby-filter">
+                      <select class="form-select">
+                        <option>Sort by</option>
+                        <option class="sorting">Rating</option>
+                        <option class="sorting">Popular</option>
+                        <option class="sorting">Latest</option>
+                        <option class="sorting">Free</option>
+                      </select>
+                    </apan>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="map-list">
+                  @Html.Partial("~/Views/Partials/Doctors/doctor-listing.cshtml", Model)
+                </div>
+                <div class="load-more text-center mt-3">
+                  <a href="#" class="butn-primary">Load More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-12 map-right grid-list-map">
+              <div id="map"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<h1> @_doctors.Value("title")</h1>
-<p>@_doctors.Value("username")</p>
-<p>@_doctors.Value("firstName")</p>
-<p>@_doctors.Value("lastName")</p>
-<p>@_doctors.Value("email")</p>
-<p>@_doctors.Value("gender")</p>
-<p>@_doctors.Value("phoneNumber")</p>
-<p>@_doctors.Value("dateOfBirth")</p>
-<p>@_doctors.Value("uploadImage")</p>
-<br><br>
 
 
-<h1> @_doctors.Value("contactTitle")</h1>
-<p>@_doctors.Value("addressLine1")</p>
-<p>@_doctors.Value("addressLine2")</p>
-<p>@_doctors.Value("city")</p>
-<p>@_doctors.Value("state")</p>
-<p>@_doctors.Value("country")</p>
-<p>@_doctors.Value("postalCode")</p>
+
+    

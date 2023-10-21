@@ -1,0 +1,92 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Profile>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Models.Blocks;
+
+
+@{
+    var uploadImage = Model.Value<string>("uploadImage");
+    var _fancyImages = Model != null ? Model.Value<IEnumerable<IPublishedContent>>("fancyImages") : null;
+    var Services = Model.Value<BlockGridModel>("services");
+    var _specialization = Model.Value<BlockGridModel>("specialization");
+     var _addEducation = Model.Value<BlockGridModel>("addEducation");
+}
+<div class="location-list">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="map-list">
+                                <div class="map-left-content">
+                                  <h3 class="mb-1">
+                                    <a href="/doctor-profile.html">Smile Cute Dental Care Center</a>
+                                  </h3>
+                                  <p class="fw-normal mb-2">
+                                    @Model.Value("about")
+                                  </p>
+
+                                  <div class="rating mb-2">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"> </i>
+                                    <i class="fas fa-star"> </i>
+                                    <span class="average-rating">(4)</span>
+                                  </div>
+                                  <div class="clinical-details">
+                                    <p class="doc-location fw-normal">
+                                      <i class="fas fa-map-marker-alt me-1"></i>
+                                      2286 Sundown Lane, Austin, Texas 78749,
+                                      USA
+                                      <br />
+                                      <a href="#" class="mt-1">Get Direction</a>
+                                    </p>
+                                    <ul class="clinic-gallery">
+                                      @foreach (var fancyimage in _fancyImages)
+                                        {
+                                        <li>
+                                            <a data-fancybox="gallery"
+                                                data-src="@(fancyimage != null ? fancyimage.Url() : "")">
+                                                <img src="@(fancyimage != null ? fancyimage.Url() : "")"
+                                                    alt="">
+                                            </a>
+                                        </li>
+                                        }
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="clinic-timing">
+                                <div>
+                                  <p class="timings-days">
+                                    <span> Mon - Sat </span>
+                                  </p>
+                                  <p class="timings-times">
+                                    <span>10:00 AM - 2:00 PM</span>
+                                    <span>4:00 PM - 9:00 PM</span>
+                                  </p>
+                                </div>
+                                <div>
+                                  <p class="timings-days">
+                                    <span>Sun</span>
+                                  </p>
+                                  <p class="timings-times">
+                                    <span>10:00 AM - 2:00 PM</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="clinic-timing">
+                                <div class="consult-price">$250</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

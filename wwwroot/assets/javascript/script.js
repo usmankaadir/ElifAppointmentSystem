@@ -110,24 +110,62 @@ let upcomming = $("#upcomming");
 let upcomming_appointments = $("#upcomming-appointments");
 let today = $("#today");
 let today_appointments = $("#today-appointments");
+let Medical_Records = $("#Medical-Records");
+let Record_detail = $("#Record-details");
+let Billing = $("#Billing");
+let Billing_detail = $("#Billing-Records");
 
 upcomming.click(function (event) {
   event.preventDefault();
   if (!upcomming_appointments.hasClass("active")) {
-    upcomming_appointments.addClass("active");
     upcomming.addClass("active");
-    today_appointments.removeClass("active");
+    upcomming_appointments.addClass("active");
     today.removeClass("active");
+    today_appointments.removeClass("active");
+    Medical_Records.removeClass("active");
+    Record_detail.removeClass("active");
+    Billing.removeClass("active");
+    Billing_detail.removeClass("active");
   }
 });
 
 today.click(function (event) {
   event.preventDefault();
   if (!today_appointments.hasClass("active")) {
-    today_appointments.addClass("active");
     today.addClass("active");
+    today_appointments.addClass("active");
     upcomming_appointments.removeClass("active");
     upcomming.removeClass("active");
+    Medical_Records.removeClass("active");
+    Record_detail.removeClass("active");
+    Billing.removeClass("active");
+    Billing_detail.removeClass("active");
+  }
+});
+Medical_Records.click(function (event) {
+  event.preventDefault();
+  if (!Record_detail.hasClass("active")) {
+    Medical_Records.addClass("active");
+    Record_detail.addClass("active");
+    upcomming_appointments.removeClass("active");
+    upcomming.removeClass("active");
+    today.removeClass("active");
+    today_appointments.removeClass("active");
+    Billing.removeClass("active");
+    Billing_detail.removeClass("active");
+  }
+});
+Billing.click(function (event) {
+  event.preventDefault();
+  if (!Billing_detail.hasClass("active")) {
+    Billing.addClass("active");
+    Billing_detail.addClass("active");
+    upcomming_appointments.removeClass("active");
+    upcomming.removeClass("active");
+    today.removeClass("active");
+    today_appointments.removeClass("active");
+    Medical_Records.removeClass("active");
+    Record_detail.removeClass("active");
   }
 });
 
@@ -303,10 +341,10 @@ $(document).ready(() => {
 
     $(document).on("click", `${targetContainer} .trash`, function (event) {
       event.preventDefault();
-      $(this).closest(".row").remove();
+
+      $(this).closest(".row").remove(); // Remove elements with .row class
     });
   }
-
   const infoContent = `
   <div class="row hours-info"><div class="col-12 col-md-10"><div class="row"><div class="col-md-6"><div class="mb-3"><label class="mb-2 w-100">Time Start<select class="form-select form-control"><option value="" selected="selected">-</option><option value="">12.00 pm</option><option value="">12.30 pm</option><option value="">01.00 pm</option><option value="">01.30 pm</option></select></label></div></div><div class="col-md-6"><div class="mb-3"><label class="mb-2 w-100">Time Start<select class="form-select form-control"><option value="" selected="selected">-</option><option value="">12.00 pm</option><option value="">12.30 pm</option><option value="">01.00 pm</option><option value="">01.30 pm</option></select></label></div></div></div></div><div class="col-12 col-md-2"><label for="" class="d-md-block d-sm-none d-none">&nbsp;</label><a  class="btn btn-danger trash"><i class="fas fa-trash-can text-light"></i></a></div></div>
   `;
@@ -328,47 +366,188 @@ $(document).ready(() => {
   const registeraionContent = `
   <div class="row"> <div class="col-md-5 col-12"> <div class="input-group"> <div class="mb-3 w-100"> <label for="" class="mb-2">Registerations </label> <input type="text" class="form-control w-100" /> </div> </div> </div> <div class="col-md-5 col-12"> <div class="input-group"> <div class="mb-3 w-100"> <label for="" class="mb-2">Year </label> <input type="text" class="form-control w-100" /> </div> </div> </div> <div class="col-12 col-md-2 "> <label for="" class="d-md-block d-sm-none d-none mt-2" >&nbsp;</label ><a class="btn btn-danger trash" ><i class="fas fa-trash-can text-light"></i ></a> </div> </div>
   `;
+  // const prescription_cpntent = `<td><input type="text" class="form-control" /></td><td><input type="text" class="form-control" /></td><td><input type="text" class="form-control" /></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input" type="checkbox" />Morning </label></div><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input" type="checkbox" />Afternoon </label></div><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input" type="checkbox" />Evening </label></div><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input" type="checkbox" />Night </label></div></td><td><a href="#" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a></td>`;
 
-  setupAddRemoveBehavior(".add_info", infoContent, ".add_item");
+  setupAddRemoveBehavior(".add-info", infoContent, ".add_item"); // Remove elements with .row class
   setupAddRemoveBehavior(".add-edu", eduContent, ".add-education");
   setupAddRemoveBehavior(".add-exp", expContent, ".add-experience");
   setupAddRemoveBehavior(".add-award", awardContent, ".add-new-award");
   setupAddRemoveBehavior(
-    ".add-Memberships",
+    ".add-memberships",
     membershipContent,
-    ".add-new-Memberships"
+    ".add-new-memberships",
+    false
   );
   setupAddRemoveBehavior(
-    ".add-Registerations",
+    ".add-registerations",
     registeraionContent,
-    ".add-new-Registerations"
+    ".add-new-registerations"
   );
+  // setupAddRemoveBehavior(
+  //   ".add-prescription",
+  //   prescription_cpntent,
+  //   ".table-prescription",
+  //   true
+  // ); // Remove TR element
 });
 
-// animate on scroll
-// Use jQuery to select the element to animate
-const $element = $(".my-element");
+// teble prescription
 
-// Define the options for the Intersection Observer
-const options = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 0.5,
-};
+$(document).ready(function () {
+  let rowCount = 1; // Initialize the row count
 
-// Create a new Intersection Observer
-const observer = new IntersectionObserver(function (entries, observer) {
-  entries.forEach((entry) => {
-    // If element is in viewport, add the 'show' class to trigger the animation
-    if (entry.isIntersecting) {
-      $element.addClass("show");
-    } else {
-      $element.removeClass("show");
+  // Create a template for the default tr
+  const defaultTr = $("tr.table-prescription").first().clone();
+
+  function setupAddRemoveBehavior(selector, targetContainer) {
+    $(document).on("click", selector, function () {
+      // Clone the default tr
+      const clonedTr = defaultTr.clone();
+
+      // Increment the row count and set it as a data attribute
+      rowCount++;
+      clonedTr.attr("data-row-id", rowCount);
+
+      // Clear any input values within the cloned tr
+      clonedTr.find("input[type='text']").val("");
+
+      // Clear checkboxes within the cloned tr
+      clonedTr.find("input[type='checkbox']").prop("checked", false);
+
+      // Append the cloned tr to the table
+      $("table tbody").append(clonedTr);
+    });
+
+    $(document).on("click", `${targetContainer} .trash`, function (event) {
+      event.preventDefault();
+      // Get the data-row-id attribute of the clicked tr
+      const rowId = $(this).closest("tr").attr("data-row-id");
+
+      // Remove the specific tr based on the rowId
+      $(`tr[data-row-id='${rowId}']`).remove();
+    });
+  }
+
+  setupAddRemoveBehavior(".add-prescription", ".table-prescription");
+});
+
+// remaining words on Doctor Profile
+$(document).ready(function () {
+  // Attach an input event handler to the text area
+  $("#review_desc").on("input", function () {
+    var text = $(this).val();
+    var words = text.trim().split(/\s+/);
+    var charsRemaining = 100 - words.length;
+
+    // Check if the textarea is empty and set the count to 100
+    if (text.trim() === "") {
+      charsRemaining = 100;
     }
-  });
-}, options);
 
-// Start observing the element
-$element.each(function () {
-  observer.observe(this);
+    $("#chars").text(charsRemaining);
+  });
+});
+
+// ================BOOKING PAGE=================
+$(".load-more-timings").on("click", function () {
+  // Find the closest ".timing-slot-morning" to the clicked button and toggle its "active" class
+  $(this)
+    .closest(".time-slot-list")
+    .find(".timing-slot-morning")
+    .toggleClass("show");
+});
+
+$(".available-slots").click(function () {
+  $(".available-slots").removeClass("active");
+  $(this).addClass("active");
+
+  /*var content = $(this).find("span").text();*/
+
+  // Display the content in the console (for testing)
+  //console.log("Text Content:", content);
+
+  //var currentTime = new Date();
+
+  //// Get the current time in hours, minutes, and seconds
+  //var hours = currentTime.getHours();
+  //var minutes = currentTime.getMinutes();
+  //var seconds = currentTime.getSeconds();
+
+  //// Display the current time in a specific format
+  //console.log("Current Time: " + hours + ":" + minutes + ":" + seconds);
+});
+$(".activating").click(function () {
+  $(".activating").removeClass("active");
+  $(this).addClass("active");
+});
+
+// Slick Slider
+$(document).ready(function () {
+  $(".date-slider-slick").slick({
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  });
+});
+
+$(document).ready(function () {
+    var formData = {
+        appointment_for: "",
+        dependent: "",
+        insurance: "",
+        review: "",
+        symptoms: "",
+        dateType: ""
+    };
+
+    // Event handler for the "Next" button click
+    $("#next-button").on("click", function () {
+        // Update formData with user inputs
+        formData.appointment_for = $("input[name='appointment_for']:checked")
+            .closest("label")
+            .text()
+            .trim();
+        formData.dependent = $("select.form-select").val();
+        formData.insurance = $("input[name='insurance']:checked")
+            .closest("label")
+            .text()
+            .trim();
+        formData.review = $("#review_desc").val();
+        formData.symptoms = $("#symptoms-desc").val();
+
+        // Log the formData object to the console for testing
+        console.log(formData);
+    });
+    var docId = $("#doc-info").data("docid");
+
+    // Add the docId to the formData object
+    formData.docId = docId;
+
+    // Event delegation for dynamically generated elements
+    $(".time-slot-list").on("click", ".available-slots", function () {
+        let dateType = $(this).data("currentslot");
+        console.log(dateType);
+
+        // Update formData with the selected dateType
+        formData.dateType = dateType;
+    });
 });

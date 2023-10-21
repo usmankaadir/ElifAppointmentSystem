@@ -1,0 +1,35 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    //var _miniBanner = Umbraco.ContentAtRoot().FirstOrDefault()?.Children().FirstOrDefault(x => x.ContentType.Alias == "miniBanner");
+}
+
+<!-- ==================Dashboard starts============= -->
+<section class="dashboard-section bkg-gray">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">@(Model?.Value<string>("bannerTitle") ?? "null")</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        @if (Model != null && Model.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("link") != null)
+                        {
+                            @foreach (var link in Model.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("link"))
+                            {
+                                <li class="breadcrumb-item"><a href="@link.Url">@link.Name</a></li>
+                            }
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Booking
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================Dashboard Ends============= -->

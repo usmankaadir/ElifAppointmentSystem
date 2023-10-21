@@ -4,14 +4,9 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Profile >
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = null;
+	Layout = "master";
 }
 
+
 @Html.Partial("~/Views/Partials/Doctors/Doctor-Profile.cshtml", Model)
-@await Html.GetBlockGridHtmlAsync(Model.SlotsDuration)
-@await Html.GetBlockGridHtmlAsync(Model.DoctorsTimeSlot)
-@await Html.GetBlockGridHtmlAsync(Model.AddEducation)
-@await Html.GetBlockGridHtmlAsync(Model.AddExperience)
-@await Html.GetBlockGridHtmlAsync(Model.AddAwards)
-@await Html.GetBlockGridHtmlAsync(Model.Services)
-@await Html.GetBlockGridHtmlAsync(Model.Specialization)
+

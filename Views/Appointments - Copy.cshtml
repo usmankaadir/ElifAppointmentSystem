@@ -1,0 +1,419 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Models.Blocks;;
+
+@{
+    Layout = "master.cshtml";
+    var doctorId = Context.Request.Query["id"].ToString(); // Convert the doctorId to a string
+    var _doctors = Umbraco.ContentAtRoot().FirstOrDefault().Children().FirstOrDefault(x => x.ContentType.Alias == "doctors");
+    var doctorList = _doctors != null ? _doctors.Children(x => x.ContentType.Alias == "profile").FirstOrDefault(x => x.Id.ToString() == doctorId) : null;
+
+    string[] doctDuration = { "Morning", "Afternoon", "Evening" };
+    var docTiming = doctorList.Value<BlockGridModel>("doctorsTimeSlot");
+    var slotsDuration = doctorList.Value<BlockGridModel>("slotsDuration");
+
+    // Date, Time & Days
+    DateTime currentDate = DateTime.Now;
+
+    // Get the day of the month
+    int dayOfMonth = currentDate.Day;
+
+    // Get the day name for the current date
+    string dayName = currentDate.ToString("dddd");
+
+    // Get the current date formatted as "dd MMM yyyy"
+    string currentDateTime = currentDate.ToString("dd MMM yyyy");
+
+    string[] weekDayNames = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+    string toDay = currentDate.DayOfWeek.ToString();
+
+    // Get the first day of the current month
+    DateTime firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+
+    // Get the last day of the current month
+    DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+}
+<!-- ==================Dashboard starts============= -->
+@Html.Partial("~/Views/Partials/Banner/miniBanner.cshtml", Model)
+<!-- ==================Dashboard Ends============= -->
+
+@if (doctorList != null)
+{
+    <!-- ==================main content start============= -->
+    <section class="space-ptb">
+        <div class="container">
+            <div class="row Booking">
+                <div class="col-lg-8 col-md-12">
+                    <div class="booking-header pb-4">
+                        <h4 class="booking-title">Select Available Slots</h4>
+                    </div>
+                    <div class="booking-date choose-date-book pb-4 d-flex align-items-md-center flex-column flex-md-row">
+                        <p class="mb-2 mb-md-0">Choose Date</p>
+                        <div class="booking-range">
+                            <div id="reportrange"
+                                 class="bookingRange btn d-flex align-items-center">
+                                <img src="/assets/imgs/icons/today-icon.svg"
+                                     alt="today icon" />
+                                <span>October 6, 2023 - October 12, 2023</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card Booking-card">
+                        <div class="card-body time-slot-card">
+                            <div class="booking-date-slider mb-4">
+                                <ul class="date-slider-slick text-center">
+                                    @for (var day = currentDate; day <= lastDayOfMonth; day = day.AddDays(1))
+                                    {
+                                        <li class="@((day.DayOfWeek == currentDate.DayOfWeek && day.Day == currentDate.Day) ? "active" : "")">
+                                            <h4>@day.ToString("dddd")</h4>
+                                            <p>@day.ToString("MMM d")</p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="row">
+                                @if (slotsDuration != null)
+                                {
+                                    @foreach (var slot in doctDuration)
+                                    {
+                                        <div class="col-md-4">
+                                            <div class="time-slot text-center">
+                                                <h4>@slot</h4>
+                                                <div>
+                                                    <ul class="time-slot-list">
+                                                        @foreach (var timings in slotsDuration)
+                                                        {
+                                                            var currentSlot = timings.Content.Value<IEnumerable<string>>("dropdown").Where(a => a.Contains(slot)).FirstOrDefault();
+                                                            if (!string.IsNullOrEmpty(currentSlot))
+                                                            {
+                                                                if (timings.Content.HasValue("timeFrom") && timings.Content.Value("timeFrom") is DateTime timeFrom
+                                                                && timings.Content.HasValue("timeTo") && timings.Content.Value("timeTo") is DateTime timeTo)
+                                                                {
+                                                                    <li>
+                                                                        <a href="javascript:void(0)"
+                                                                           class="timing available-slots">
+                                                                            <span>
+                                                                                <i class="fa-regular fa-clock"></i>
+                                                                                @timeFrom.ToString("HH:mm") - @timeTo.ToString("HH:mm")
+                                                                            </span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="booking-btn mb-3">
+                        <div class="login-btn">
+                            <a href="/patient-details" class="btn" id="next">
+                                Next <i class="fa-regular fa-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="booking-header pb-4">
+                        <h4 class="booking-title">Booking Summary</h4>
+                    </div>
+                    <div class="card booking-card">
+                        <div class="card-body booking-card-body">
+                            <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                <div class="booking-doctor-left d-flex">
+                                    <div class="booking-doctor-img avatar-img me-3">
+                                        <img src="/assets/imgs/doctor-thumb-02.jpg"
+                                             alt="doctor"
+                                             class="rounded-circle" />
+                                    </div>
+                                    <div class="booking-doctor-info">
+                                        <h4>
+                                            <a href="/doctor-profile.html">@doctorList.Value("firstName") @doctorList.Value("lastName")</a>
+                                        </h4>
+                                        <p>@doctorList.Value("about")</p>
+                                    </div>
+                                </div>
+                                <div class="booking-doctor-right">
+                                    <p class="d-flex">
+                                        <i class="fas fa-check-circle verified me-3 mt-1"></i>
+                                        <a href="/doctor-profile-setting.html">Edit</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card booking-card">
+                        <div class="card-body booking-card-body">
+                            <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                <div class="booking-device d-flex">
+                                    <div class="booking-device-img me-3">
+                                        <img src="/assets/imgs/icons/device-message.svg"
+                                             alt="device" />
+                                    </div>
+                                    <div class="booking-doctor-info">
+                                        <h3>We can help you</h3>
+                                        <p class="device-text">
+                                            Call us +1 888-888-8888 (or) chat with our customer
+                                            support team.
+                                        </p>
+                                        <div class="device-btn mt-3">
+                                            <a href="chat.html" class="article-btn ms-0 p-2">Chat With Us</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card booking-card">
+                        <div class="card-body booking-card-body">
+                            <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                <div class="booking-device d-flex">
+                                    <div class="booking-device-img me-3">
+                                        <img src="/assets/imgs/icons/smart-phone.svg"
+                                             alt="device" />
+                                    </div>
+                                    <div class="booking-doctor-info">
+                                        <h3>Get the App</h3>
+                                        <p class="device-text">
+                                            Download our app for better experience and for more
+                                            feature
+                                        </p>
+                                        <div class="app-images mt-3">
+                                            <div class="social-apps aos-init aos-animate"
+                                                 data-aos="fade-up">
+                                                <a href="#">
+                                                    <img src="/assets/imgs/icons/google-img.svg"
+                                                         alt="" />
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/assets/imgs/icons/app-img.svg"
+                                                         alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Patient Details-->
+        <div class="Patient-detail pt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="booking-header pb-4">
+                            <h4 class="booking-title">Patient Details</h4>
+                        </div>
+                        <div class="patient-appointment">
+                            <form action="consultation.html">
+                                <div class="mb-4">
+                                    <label for="" class="form-group-title">Appointment for</label>
+                                    <ul>
+                                        <li>
+                                            <label for=""
+                                                   class="custom-check d-inline-flex d-block">
+                                                <input type="radio" name="appointment" id="" />
+                                                <span class="checkmark rounded-circle"> </span>My
+                                                self
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for=""
+                                                   class="custom-check d-inline-flex d-block">
+                                                <input type="radio" name="appointment" id="" />
+                                                <span class="checkmark rounded-circle"> </span>Dependent
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <label for="" class="form-group-title">choose Dependent</label>
+                                        <a href="#" class="btn text-center">
+                                            <i class="fa-solid fa-plus"></i>
+                                            Add
+                                        </a>
+                                    </div>
+                                    <select class="form-select form-select-lg custom-select">
+                                        <option>select</option>
+                                        <option>Dependant 01</option>
+                                        <option>Dependant 02</option>
+                                        <option>Dependant 03</option>
+                                        <option>Dependant 04</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="" class="form-group-title">Do you have insurance?</label>
+                                    <ul>
+                                        <li>
+                                            <label for=""
+                                                   class="custom-check d-inline-flex d-block">
+                                                <input type="radio" name="appointment" id="" />
+                                                <span class="checkmark rounded-circle"> </span>Yes
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for=""
+                                                   class="custom-check d-inline-flex d-block">
+                                                <input type="radio" name="appointment" id="" />
+                                                <span class="checkmark rounded-circle"> </span>No
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-group-title">Review</label>
+                                    <textarea id="review_desc"
+                                              maxlength="100"
+                                              class="form-control"></textarea>
+                                    <div class="mt-3 text-end">
+                                        <small class="text-muted text-end"><span id="chars">100</span> words remaining</small>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for=""
+                                           class="form-group-title d-flex align-items-center">
+                                        <i class="fa fa-paperclip me-2"> </i>Attachment
+                                    </label>
+                                    <div class="attachment-box d-flex align-items-center justify-content-between">
+                                        <div class="attachment-img d-flex align-items-center">
+                                            <div class="attachment-icon me-2">
+                                                <i class="fa-regular fa-image"></i>
+                                            </div>
+                                            <div class="attachment-content">
+                                                <p class="mb-0">Skin Allergy Image</p>
+                                                <span class="time">12.30 pm</span>
+                                            </div>
+                                        </div>
+                                        <div class="attachment-close">
+                                            <i class="fa fa-close"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="" class="form-group-title">
+                                        Symptoms (Optional)
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Skin Allergy" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="booking-btn mb-3">
+                            <div class="login-btn">
+                                <a href="/consultation.html" class="btn">
+                                    Submit <i class="fa-regular fa-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="booking-header pb-4">
+                            <h4 class="booking-title">Booking Summary</h4>
+                        </div>
+                        <div class="card booking-card">
+                            <div class="card-body booking-card-body">
+                                <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                    <div class="booking-doctor-left d-flex">
+                                        <div class="booking-doctor-img avatar-img me-3">
+                                            <a href="/doctor-profile.html">
+                                                <img src="/assets/imgs/doctor-thumb-02.jpg"
+                                                     alt="doctor"
+                                                     class="rounded-circle" />
+                                            </a>
+                                        </div>
+                                        <div class="booking-doctor-info">
+                                            <h4>
+                                                <a href="/doctor-profile.html"> Dr. John Doe </a>
+                                            </h4>
+                                            <p>MBBS, Dentist</p>
+                                        </div>
+                                    </div>
+                                    <div class="booking-doctor-right">
+                                        <p class="d-flex">
+                                            <i class="fas fa-check-circle verified me-3 mt-1"></i>
+                                            <a href="/doctor-profile-setting.html">Edit</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-card">
+                            <div class="card-body booking-card-body">
+                                <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                    <div class="booking-device d-flex">
+                                        <div class="booking-device-img me-3">
+                                            <img src="/assets/imgs/icons/device-message.svg"
+                                                 alt="device" />
+                                        </div>
+                                        <div class="booking-doctor-info">
+                                            <h3>We can help you</h3>
+                                            <p class="device-text">
+                                                Call us +1 888-888-8888 (or) chat with our customer
+                                                support team.
+                                            </p>
+                                            <div class="device-btn mt-3">
+                                                <a href="chat.html" class="article-btn ms-0 p-2">Chat With Us</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card booking-card">
+                            <div class="card-body booking-card-body">
+                                <div class="booking-doctor-details d-flex align-items-center justify-content-between">
+                                    <div class="booking-device d-flex">
+                                        <div class="booking-device-img me-3">
+                                            <img src="/assets/imgs/icons/smart-phone.svg"
+                                                 alt="device" />
+                                        </div>
+                                        <div class="booking-doctor-info">
+                                            <h3>Get the App</h3>
+                                            <p class="device-text">
+                                                Download our app for better experience and for more
+                                                feature
+                                            </p>
+                                            <div class="app-images mt-3">
+                                                <div class="social-apps aos-init aos-animate"
+                                                     data-aos="fade-up">
+                                                    <a href="#">
+                                                        <img src="/assets/imgs/icons/google-img.svg"
+                                                             alt="" />
+                                                    </a>
+                                                    <a href="#">
+                                                        <img src="/assets/imgs/icons/app-img.svg"
+                                                             alt="" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Patient Details-->
+    </section>
+    <!-- ==================main content Ends============= -->
+}
+<!-- ==================main content start============= -->
+
+

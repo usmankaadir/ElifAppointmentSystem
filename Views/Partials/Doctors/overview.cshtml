@@ -1,0 +1,117 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Profile>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Models.Blocks;
+
+
+@{
+    var Services = Model.Value<BlockGridModel>("services");
+    var _specialization = Model.Value<BlockGridModel>("specialization");
+    var _addAwards = Model.Value<BlockGridModel>("addAwards");
+    var _addEducation = Model.Value<BlockGridModel>("addEducation");
+    var _addExperience = Model.Value<BlockGridModel>("addExperience");
+    
+}
+
+<div class="Overview">
+                          <div class="about-widget mb-4">
+                            <h4 class="widget-title">@Model.Value("aboutTitle")</h4>
+                            <p>
+                              @Model.Value("aboutSummary")
+                            </p>
+                          </div>
+                          <div class="widget-education mb-4">
+                            <h4 class="eidget-title">Education</h4>
+                            <div class="experience-box">
+                              <ul class="experience-list">
+                                @foreach (var addEducation in _addEducation)
+                                    {
+                                    <li>
+                                            <div class="experience-user">
+                                                <div class="before-circle"></div>
+                                            </div>
+                                            <div class="experience-content">
+                                                <div class="timeline-content">
+                                                    <a href="#" class="name">@addEducation.Content.Value("collage")</a>
+                                                    <p class="text-muted">@addEducation.Content.Value("degree")</p>
+                                                    <span class="time">@addEducation.Content.Value("totalYear")</span>
+                                                </div>
+                                            </div>
+                                    </li>
+                                    }
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="widget-experience mb-4">
+                            <h4 class="eidget-title">Work & Experience</h4>
+                            <div class="experience-box">
+                              <ul class="experience-list">
+                                @foreach(var experience in _addExperience)
+                                    {
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#" class="name">@experience.Content.Value("hospitalName")</a>
+                                                <span class="time">@experience.Content.Value("to")</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="widget-Awards mb-4">
+                            <h4 class="eidget-title">Awards</h4>
+                            <div class="experience-box">
+                              <ul class="experience-list">
+                                @foreach(var award in _addAwards)
+                                    {
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <p class="exp-year">@award.Content.Value("year")</p>
+                                                <h4 class="widget-title">
+                                                    @award.Content.Value("award")
+                                                </h4>
+                                                <p>
+                                                   @award.Content.Value("awardDescription")
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="services">
+                            <div class="service-list mb-4">
+                              <h4 class="service-title">Services</h4>
+                              <ul>
+                                @foreach (var item in Services)
+                                    {
+                                       <li>@item.Content.Value("addService")</li> 
+                                    }
+                              </ul>
+                            </div>
+                            <div class="service-list">
+                              <h4 class="service-title">Specializations</h4>
+                              <ul>
+                                 @foreach(var specialization in _specialization)
+                                 {
+                                    <li>@specialization.Content.Value("addSpecialization")</li>
+                                 }
+                              </ul>
+                            </div>
+                          </div>
+                        </div>

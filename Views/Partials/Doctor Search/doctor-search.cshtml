@@ -10,27 +10,13 @@
    
 }
 
+
 <!-- ==================Dashboard starts============= -->
-    <section class="dashboard-section bkg-gray">
-      <div class="container">
-        <div class="row align-items-center inner-banner">
-          <div class="col-md-12 col-12 text-center">
-            <h2 class="breadcrumb-title">Search Doctor 2</h2>
-            <nav aria-label="breadcrumb" class="page-breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="Index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  Search Doctor 2
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </section>
+    @Html.Partial("~/Views/Partials/Banner/miniBanner.cshtml", Model)
     <!-- ==================Dashboard Ends============= -->
 
-    <!-- ==================main content start============= -->
+    
+      <!-- ==================main content start============= -->
     <section class="space-ptb pt-2 mt-5">
       <div class="doctor-content content">
         <div class="container" id="container">
@@ -275,105 +261,7 @@
                       </div>
                     </div>
                     <div class="map-list">
-                      <div class="card">
-                                        
-                        @foreach(var item in _doctorProfile)
-                        {
-                        var uploadImage = item.Value<string>("uploadImage");
-                        <div class="card-body">
-                          <div class="doctor-widget d-flex">
-                            <div class="doc-info-left d-flex">
-                              <div class="doctor-img">
-                                <a href="/doctor-profile.html">      
-                                  <img src="@uploadImage" class="img-fluid" alt="" />
-                                </a>
-                              </div>
-                              <div class="map-left-content">
-                                <h3 class="mb-1">
-                                  <a href="/doctor-profile.html">@item.Value("firstName") @item.Value("lastName")</a>
-                                  <i class="fas fa-check-circle verified"></i>
-                                </h3>
-                                <p class="fw-normal mb-2">
-                                  @item.Value("about")
-                                </p>
-                                <h5 class="doc-department">
-                                  @await Html.GetBlockGridHtmlAsync(item.Specialization)
-                                </h5>
-                                <div class="rating mb-2">
-                                  <i class="fas fa-star filled"></i>
-                                  <i class="fas fa-star filled"></i>
-                                  <i class="fas fa-star filled"></i>
-                                  <i class="fas fa-star filled"> </i>
-                                  <i class="fas fa-star"> </i>
-                                  <span class="average-rating">(17)</span>
-                                </div>
-                                <div class="clinical-details">
-                                  <p class="doc-location fw-normal">
-                                    <i class="fas fa-map-marker-alt me-1"></i>
-                                    @item.Value("city"), @item.Value("country")
-                                  </p>
-                                 @* <ul class="clinic-gallery">
-                                    <li>
-                                      <a data-fancybox="gallery" data-src="assets/imgs/feature-01.jpg">
-                                        <img src="assets/imgs/feature-01.jpg" alt="Feature" />
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="assets/imgs/feature-02.jpg" data-fancybox="gallery">
-                                        <img src="assets/imgs/feature-02.jpg" alt="Feature" />
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="assets/imgs/feature-03.jpg" data-fancybox="gallery">
-                                        <img src="assets/imgs/feature-03.jpg" alt="Feature" />
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="assets/imgs/feature-04.jpg" data-fancybox="gallery">
-                                        <img src="assets/imgs/feature-04.jpg" alt="Feature" />
-                                      </a>
-                                    </li>
-                                  </ul>*@
-                                </div>
-                                <div class="clinical-services">
-                                        @await Html.GetBlockGridHtmlAsync(item.Services)
-                                </div>
-                              </div>
-                            </div>
-                            <div class="doc-info-right">
-                              <div class="clinic-infos">
-                                <div class="map-left-content">
-                                  <ul class="available-info mb-4">
-                                    <li>
-                                      <i class="far fa-thumbs-up"></i> 98%
-                                    </li>
-                                    <li>
-                                      <i class="fas fa-map-marker-alt"></i>
-                                      Florida, USA
-                                    </li>
-                                    <li>
-                                      <i class="far fa-clock"></i> Available
-                                      on Fri, 22 Mar
-                                    </li>
-                                    <li>
-                                      <i class="far fa-money-bill-alt"></i>
-                                      $300 - $1000
-                                      <i class="fas fa-info-circle ms-1" title="Lorem Ipsum"></i>
-                                    </li>
-                                  </ul>
-                                  <div class="clinic-booking">
-                                    <a href="/doctor-profile.html" class="btn view-btn">View Profile
-                                    </a>
-                                    <a href="/Booking-1.html" class="btn book-btn">Book Now
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        }
-                      </div>
+                      @Html.Partial("~/Views/Partials/Doctors/doctor-listing.cshtml", Model)
                     </div>
                     <div class="load-more text-center mt-3">
                       <a href="#" class="butn-primary">Load More</a>

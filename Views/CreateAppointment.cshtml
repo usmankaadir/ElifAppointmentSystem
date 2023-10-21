@@ -1,0 +1,6 @@
+﻿@*@{
+    var appointment = Model as Appointment;
+}
+
+<button type="submit" formmethod="post" formaction="@Html.Action("CreateAppointment", new { Model = appointment })" class="btn btn-primary">Book Appointment</button>
+*@

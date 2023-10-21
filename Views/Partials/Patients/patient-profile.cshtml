@@ -8,6 +8,10 @@
     var _patientProfile = _patients != null ? _patients.Children(x => x.ContentType.Alias == "patientProfile").OrderByDescending(x => x.CreateDate) : null;
    
  }
+ 
+ <!-- ==================Dashboard starts============= -->
+    @Html.Partial("~/Views/Partials/Banner/miniBanner.cshtml", Model)
+    <!-- ==================Dashboard Ends============= -->
  @if(_patientProfile != null)
  {
     foreach (var item in _patientProfile.Take(1))
